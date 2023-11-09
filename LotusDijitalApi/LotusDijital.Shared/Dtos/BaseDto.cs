@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusDijital.Entity
+namespace LotusDijital.Shared.Dtos
 {
-    public class Base
+    public class BaseDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
         public bool IsActive { get; set; }
-
     }
 }

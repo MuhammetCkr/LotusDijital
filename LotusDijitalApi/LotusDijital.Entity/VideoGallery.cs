@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace LotusDijital.Entity
 {
-    public class ProductCategories
+    public class VideoGallery : Base
     {
-        public int Id { get; set; }
+        public string VideoImage { get; set; }
+        public string VideoEmbed { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public int InnerPageId { get; set; }
+        public InnerPage InnerPage { get; set; }
     }
 }

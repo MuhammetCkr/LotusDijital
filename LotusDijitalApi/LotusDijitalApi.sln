@@ -5,9 +5,13 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusDijital.API", "LotusDijital.API\LotusDijital.API.csproj", "{651F3168-30DF-4CDB-B8B6-83A65F87DD3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusDijital.Data", "LotusDijital.Data\LotusDijital.Data.csproj", "{7F8CC3E6-8E76-4A8A-BD22-E5F5854FD64C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusDijital.Data", "LotusDijital.Data\LotusDijital.Data.csproj", "{7F8CC3E6-8E76-4A8A-BD22-E5F5854FD64C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusDijital.Entity", "LotusDijital.Entity\LotusDijital.Entity.csproj", "{85448461-904F-4852-80DF-4BB6E2A99063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusDijital.Entity", "LotusDijital.Entity\LotusDijital.Entity.csproj", "{85448461-904F-4852-80DF-4BB6E2A99063}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusDijital.Business", "LotusDijital.Business\LotusDijital.Business.csproj", "{BC252C70-7540-4093-8F32-998E198757FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusDijital.Shared", "LotusDijital.Shared\LotusDijital.Shared.csproj", "{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{85448461-904F-4852-80DF-4BB6E2A99063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85448461-904F-4852-80DF-4BB6E2A99063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85448461-904F-4852-80DF-4BB6E2A99063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC252C70-7540-4093-8F32-998E198757FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC252C70-7540-4093-8F32-998E198757FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC252C70-7540-4093-8F32-998E198757FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC252C70-7540-4093-8F32-998E198757FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

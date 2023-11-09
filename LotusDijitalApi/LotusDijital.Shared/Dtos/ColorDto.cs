@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusDijital.Entity
+namespace LotusDijital.Shared.Dtos
 {
-    public class Color
+    public class ColorDto
     {
         public int Id { get; set; }
         public string Parameter { get; set; }

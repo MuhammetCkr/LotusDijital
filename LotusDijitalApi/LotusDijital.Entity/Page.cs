@@ -8,7 +8,12 @@ namespace LotusDijital.Entity
 {
     public class Page : Base
     {
+        public Page()
+        {
+            InnerPages = new List<InnerPage>();
+        }
         public string Title { get; set; }
-        public int MyProperty { get; set; }
+        public List<InnerPage> InnerPages { get; set; }
+        
     }
 }

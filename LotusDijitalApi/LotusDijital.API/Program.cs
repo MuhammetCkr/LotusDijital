@@ -1,9 +1,37 @@
+using LotusDijital.Business.Abstract;
+using LotusDijital.Business.Concrete;
+using LotusDijital.Data.Abstract;
+using LotusDijital.Data.Concrete.EfCore.Context;
+using LotusDijital.Data.Concrete.EfCore.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDbContext<LotusDijitalDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
+
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+builder.Services.AddScoped<IColorService, ColorManager>();
+builder.Services.AddScoped<IDocumentGalleryService, DocumentGalleryManager>();
+builder.Services.AddScoped<IImageGalleryService, ImageGalleryManager>();
+builder.Services.AddScoped<IInnerPageService, InnerPageManager>();
+builder.Services.AddScoped<IPageService, PageManager>();
+builder.Services.AddScoped<IProductService, ProductManager>();
+builder.Services.AddScoped<IVideoGalleryService, VideoGalleryManager>();
+
+builder.Services.AddScoped<ICategoryRepository, EfCoreCategoryRepository>();
+builder.Services.AddScoped<IColorRepository, EfCoreColorRepository>();
+builder.Services.AddScoped<IDocumentGalleryRepository, EfCoreDocumentGalleryRepository>();
+builder.Services.AddScoped<IImageGalleryReposiyory, EfCoreImageGalleryRepository>();
+builder.Services.AddScoped<IInnerPageRepository, EfCoreInnerPageRepository>();
+builder.Services.AddScoped<IPageRepository, EfCorePageRepository>();
+builder.Services.AddScoped<IProductRepository, EfCoreProductRepository>();
+builder.Services.AddScoped<IVideoGalleryRepository, EfCoreVideoGalleryRepository>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
