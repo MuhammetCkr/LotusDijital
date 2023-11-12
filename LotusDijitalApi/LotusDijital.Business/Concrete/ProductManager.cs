@@ -12,12 +12,12 @@ namespace LotusDijital.Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        public Task<bool> CreateAsync(ProductDto entity)
+        public Task<bool> CreateAsync(ProductDto dto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(ProductDto entity)
+        public Task<bool> DeleteAsync(ProductDto dto)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(ProductDto entity)
+        public Task<bool> UpdateAsync(ProductDto dto)
         {
             throw new NotImplementedException();
         }

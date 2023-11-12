@@ -12,12 +12,12 @@ namespace LotusDijital.Business.Concrete
 {
     public class ColorManager : IColorService
     {
-        public Task<bool> CreateAsync(ColorDto entity)
+        public Task<bool> CreateAsync(ColorDto dto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(ColorDto entity)
+        public Task<bool> DeleteAsync(ColorDto dto)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(ColorDto entity)
+        public Task<bool> UpdateAsync(ColorDto dto)
         {
             throw new NotImplementedException();
         }

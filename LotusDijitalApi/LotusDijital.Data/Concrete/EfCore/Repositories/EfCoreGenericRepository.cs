@@ -18,24 +18,39 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<bool> CreateAsync(TEntity entity)
+        public async Task<bool> CreateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await _dbContext.Set<TEntity>().AddAsync(entity);
+
+            var result = await _dbContext.SaveChangesAsync();
+            return result > 0;
         }
 
-        public Task<bool> DeleteAsync(TEntity entity)
+        public async Task<bool> DeleteAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.Set<TEntity>().Remove(entity);
+                var result = await _dbContext.SaveChangesAsync();
+                return result > 0;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
         }
 
-        public Task<List<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<TEntity>().ToListAsync();
         }
 
-        public Task<TEntity> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var category = await _dbContext.Set<TEntity>().FindAsync(id);
+            return category;
         }
 
         public Task<List<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> expression)
@@ -43,9 +58,11 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(TEntity entity)
+        public async Task<bool> UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+             _dbContext.Set<TEntity>().Update(entity);
+            var result = await _dbContext.SaveChangesAsync();
+            return result > 0;
         }
     }
 }

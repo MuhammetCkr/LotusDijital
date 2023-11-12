@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace LotusDijital.Business.Abstract
 {
-    public interface IService<TEntity>
+    public interface IService<TDto>
     {
-        Task<TEntity> GetByIdAsync(int id);
-        Task<List<TEntity>> GetAllAsync();
-        Task<List<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> expression);
-        Task<bool> CreateAsync(TEntity entity);
-        Task<bool> UpdateAsync(TEntity entity);
-        Task<bool> DeleteAsync(TEntity entity);
+        Task<TDto> GetByIdAsync(int id);
+        Task<List<TDto>> GetAllAsync();
+        Task<List<TDto>> GetManyAsync(Expression<Func<TDto, bool>> expression);
+        Task<bool> CreateAsync(TDto dto);
+        Task<bool> UpdateAsync(TDto dto);
+        Task<bool> DeleteAsync(TDto dto);
     }
 }

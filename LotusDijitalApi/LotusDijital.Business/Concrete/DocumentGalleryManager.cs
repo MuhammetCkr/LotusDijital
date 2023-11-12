@@ -12,12 +12,12 @@ namespace LotusDijital.Business.Concrete
 {
     public class DocumentGalleryManager : IDocumentGalleryService
     {
-        public Task<bool> CreateAsync(DocumentGalleryDto entity)
+        public Task<bool> CreateAsync(DocumentGalleryDto dto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(DocumentGalleryDto entity)
+        public Task<bool> DeleteAsync(DocumentGalleryDto dto)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(DocumentGalleryDto entity)
+        public Task<bool> UpdateAsync(DocumentGalleryDto dto)
         {
             throw new NotImplementedException();
         }

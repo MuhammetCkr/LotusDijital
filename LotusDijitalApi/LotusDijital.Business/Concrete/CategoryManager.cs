@@ -1,4 +1,6 @@
-﻿using LotusDijital.Business.Abstract;
+﻿using AutoMapper;
+using LotusDijital.Business.Abstract;
+using LotusDijital.Data.Abstract;
 using LotusDijital.Entity;
 using LotusDijital.Shared.Dtos;
 using System;
@@ -12,24 +14,49 @@ namespace LotusDijital.Business.Concrete
 {
     public class CategoryManager : ICategoryService
     {
-        public Task<bool> CreateAsync(CategoryDto entity)
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IMapper _mapper;
+
+        public CategoryManager(ICategoryRepository categoryRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _categoryRepository = categoryRepository;
+            _mapper = mapper;
         }
 
-        public Task<bool> DeleteAsync(CategoryDto entity)
+        public async Task<bool> CreateAsync(CategoryDto dto)
         {
-            throw new NotImplementedException();
+            var categoryAdd = _mapper.Map<Category>(dto);
+            var resultCategory = await _categoryRepository.CreateAsync(categoryAdd);
+            return resultCategory;
         }
 
-        public Task<List<CategoryDto>> GetAllAsync()
+        public async Task<bool> DeleteAsync(CategoryDto dto)
         {
-            throw new NotImplementedException();
+            var categoryDelete = _mapper.Map<Category>(dto);
+            var result = await _categoryRepository.DeleteAsync(categoryDelete);
+            return result;
         }
 
-        public Task<CategoryDto> GetByIdAsync(int id)
+        public async Task<List<CategoryDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var categories = await _categoryRepository.GetAllAsync();
+            if (categories.Count == 0)
+            {
+                return new List<CategoryDto> { new CategoryDto() { ErrorMessage = "Hiç kategori bulunamadı" } };
+            }
+            var categoryDtos = _mapper.Map<List<CategoryDto>>(categories);
+            return categoryDtos;
+        }
+
+        public async Task<CategoryDto> GetByIdAsync(int id)
+        {
+            var category = await _categoryRepository.GetByIdAsync(id);
+            if (category == null)
+            {
+                return new CategoryDto() { ErrorMessage = "kategori bulunamadı!" } ;
+            }
+            var categoryDto = _mapper.Map<CategoryDto>(category);
+            return categoryDto;
         }
 
         public Task<List<CategoryDto>> GetManyAsync(Expression<Func<CategoryDto, bool>> expression)
@@ -37,9 +64,11 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(CategoryDto entity)
+        public async Task<bool> UpdateAsync(CategoryDto dto)
         {
-            throw new NotImplementedException();
+            var updateCategory = _mapper.Map<Category>(dto);
+            var result = await _categoryRepository.UpdateAsync(updateCategory);
+            return result;
         }
     }
 }

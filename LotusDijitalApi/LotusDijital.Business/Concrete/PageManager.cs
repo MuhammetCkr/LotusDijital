@@ -12,12 +12,12 @@ namespace LotusDijital.Business.Concrete
 {
     public class PageManager : IPageService
     {
-        public Task<bool> CreateAsync(PageDto entity)
+        public Task<bool> CreateAsync(PageDto dto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(PageDto entity)
+        public Task<bool> DeleteAsync(PageDto dto)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(PageDto entity)
+        public Task<bool> UpdateAsync(PageDto dto)
         {
             throw new NotImplementedException();
         }

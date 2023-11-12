@@ -12,12 +12,12 @@ namespace LotusDijital.Business.Concrete
 {
     public class InnerPageManager : IInnerPageService
     {
-        public Task<bool> CreateAsync(InnerPageDto entity)
+        public Task<bool> CreateAsync(InnerPageDto dto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(InnerPageDto entity)
+        public Task<bool> DeleteAsync(InnerPageDto dto)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(InnerPageDto entity)
+        public Task<bool> UpdateAsync(InnerPageDto dto)
         {
             throw new NotImplementedException();
         }
