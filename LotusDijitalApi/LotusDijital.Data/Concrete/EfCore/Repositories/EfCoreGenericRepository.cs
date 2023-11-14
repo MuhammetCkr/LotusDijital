@@ -49,8 +49,11 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
 
         public async Task<TEntity> GetByIdAsync(int id)
         {
-            var category = await _dbContext.Set<TEntity>().FindAsync(id);
-            return category;
+            var entity = await _dbContext.Set<TEntity>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
+
+            return entity;
         }
 
         public Task<List<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> expression)
