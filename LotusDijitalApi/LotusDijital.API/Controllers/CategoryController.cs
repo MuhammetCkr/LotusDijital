@@ -34,7 +34,7 @@ namespace LotusDijital.API.Controllers
         }
 
         [HttpPost("/addcategory")]
-        public async Task<IActionResult> Create(AddCategoryDto addCategoryDto)
+        public async Task<IActionResult> AddCategory(AddCategoryDto addCategoryDto)
         {
             var categoryDto = new CategoryDto()
             {

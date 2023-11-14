@@ -1,6 +1,8 @@
 ﻿using LotusDijital.Business.Abstract;
+using LotusDijital.Shared.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace LotusDijital.API.Controllers
 {
@@ -15,9 +17,23 @@ namespace LotusDijital.API.Controllers
             _productService = productService;
         }
         [HttpPost("/addproduct")]
-        public async Task<IActionResult> AddProduct()
+        public async Task<IActionResult> AddProduct(AddProductDto addProductDto)
         {
-            return Ok();
+            var productDto = new ProductDto()
+            {
+                Categories = addProductDto.CategoryIds,
+                DocumentGalleries = addProductDto.DocumentGalleries,
+                Image = addProductDto?.Image,
+                ImageGalleries = addProductDto?.ImageGalleries,
+                IsActive = addProductDto.IsActive,
+                Link = addProductDto?.Link,
+                Name = addProductDto?.Name,
+                Url = addProductDto?.Url,
+                VideoGalleries = addProductDto?.VideoGalleries,
+            };
+            var response = await _productService.CreateAsync(productDto);
+            var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(jsonResponse);
         }
     }
 }

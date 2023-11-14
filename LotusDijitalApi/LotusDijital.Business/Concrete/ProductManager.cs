@@ -1,4 +1,6 @@
-﻿using LotusDijital.Business.Abstract;
+﻿using AutoMapper;
+using LotusDijital.Business.Abstract;
+using LotusDijital.Data.Abstract;
 using LotusDijital.Entity;
 using LotusDijital.Shared.Dtos;
 using System;
@@ -12,6 +14,21 @@ namespace LotusDijital.Business.Concrete
 {
     public class ProductManager : IProductService
     {
+        private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
+
+        public ProductManager(IProductRepository productRepository, IMapper mapper)
+        {
+            _productRepository = productRepository;
+            _mapper = mapper;
+        }
+
+        public Task<AddProductDto> AddProductAsync(AddProductDto addProductDto)
+        {
+            var addProduct = _mapper.Map<Product>(addProductDto);
+            var result = _productRepository.CreateAsync(addProduct);
+        }
+
         public Task<bool> CreateAsync(ProductDto dto)
         {
             throw new NotImplementedException();

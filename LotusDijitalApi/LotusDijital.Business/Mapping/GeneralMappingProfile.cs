@@ -21,6 +21,10 @@ namespace LotusDijital.Business.Mapping
             CreateMap<Page, PageDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ForMember(pdto => pdto.Categories, opt => opt.MapFrom(p => p.ProductCategories.Select(pc => pc.Category))).ReverseMap();
             CreateMap<VideoGallery, VideoGalleryDto>().ReverseMap();
+
+            CreateMap<Product, AddProductDto>().ReverseMap();
+            CreateMap<Category, AddCategoryDto>().ReverseMap();
+
         }
     }
 }
