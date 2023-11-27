@@ -23,11 +23,11 @@ namespace LotusDijital.Business.Concrete
             _mapper = mapper;
         }
 
-        public async Task<bool> CreateAsync(CategoryDto dto)
+        public async Task<bool> CreateAsync(AddCategoryDto addCategoryDto)
         {
-            var categoryAdd = _mapper.Map<Category>(dto);
-            var resultCategory = await _categoryRepository.CreateAsync(categoryAdd);
-            return resultCategory;
+            var categoryAdd = _mapper.Map<Category>(addCategoryDto);
+            var result = await _categoryRepository.CreateAsync(categoryAdd);
+            return result != null;
         }
 
         public async Task<bool> DeleteAsync(CategoryDto dto)
@@ -68,7 +68,14 @@ namespace LotusDijital.Business.Concrete
         {
             var updateCategory = _mapper.Map<Category>(dto);
             var result = await _categoryRepository.UpdateAsync(updateCategory);
-            return result;
+            return result != null;
+        }
+
+        public async Task<bool> UpdateAsync(UpdateCategoryDto updateCategoryDto)
+        {
+            var updateCategory = _mapper.Map<Category>(updateCategoryDto);
+            var result = await _categoryRepository.UpdateAsync(updateCategory);
+            return result != null;
         }
     }
 }

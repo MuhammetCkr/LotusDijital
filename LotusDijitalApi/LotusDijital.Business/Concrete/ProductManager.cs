@@ -23,15 +23,16 @@ namespace LotusDijital.Business.Concrete
             _mapper = mapper;
         }
 
-        public Task<AddProductDto> AddProductAsync(AddProductDto addProductDto)
+        public async Task<bool> CreateAsync(AddProductDto addProductDto)
         {
-            var addProduct = _mapper.Map<Product>(addProductDto);
-            var result = _productRepository.CreateAsync(addProduct);
-        }
+            var productAdd = _mapper.Map<Product>(addProductDto);
+            var result = await _productRepository.CreateAsync(productAdd);
 
-        public Task<bool> CreateAsync(ProductDto dto)
-        {
-            throw new NotImplementedException();
+            if (result == null)
+                return false;
+            
+            var productCategoryAdd = await _productRepository.SaveProductCategoriesAsync(result.Id, addProductDto.CategoryIds, addProductDto.ImageGalleryIds,addProductDto.VideoGalleryIds, addProductDto.DocumentGalleryIds);
+            return productCategoryAdd;
         }
 
         public Task<bool> DeleteAsync(ProductDto dto)
@@ -54,9 +55,11 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(ProductDto dto)
+        public async Task<bool> UpdateAsync(UpdateProductDto updateProductDto)
         {
-            throw new NotImplementedException();
+            var updateProduct = _mapper.Map<Product>(updateProductDto);
+            var result = await _productRepository.UpdateAsync(updateProduct);
+            return result != null;
         }
     }
 }

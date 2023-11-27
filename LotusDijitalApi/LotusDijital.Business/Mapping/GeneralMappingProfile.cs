@@ -14,17 +14,20 @@ namespace LotusDijital.Business.Mapping
         public GeneralMappingProfile()
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
-            CreateMap<Color, ColorDto>().ReverseMap();
-            CreateMap<DocumentGallery, DocumentGalleryDto>().ReverseMap();
+            //CreateMap<Color, ColorDto>().ReverseMap();
+            //CreateMap<DocumentGallery, DocumentGalleryDto>().ReverseMap();
             CreateMap<ImageGallery, ImageGalleryDto>().ReverseMap();
-            CreateMap<InnerPage, InnerPageDto>().ReverseMap();
-            CreateMap<Page, PageDto>().ReverseMap();
+            //CreateMap<InnerPage, InnerPageDto>().ReverseMap();
+            //CreateMap<Page, PageDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ForMember(pdto => pdto.Categories, opt => opt.MapFrom(p => p.ProductCategories.Select(pc => pc.Category))).ReverseMap();
-            CreateMap<VideoGallery, VideoGalleryDto>().ReverseMap();
+            //CreateMap<VideoGallery, VideoGalleryDto>().ReverseMap();
 
             CreateMap<Product, AddProductDto>().ReverseMap();
             CreateMap<Category, AddCategoryDto>().ReverseMap();
+            CreateMap<ImageGallery, AddImageGalleryDto>().ReverseMap();
 
+            CreateMap<Category, UpdateCategoryDto>().ReverseMap();
+            CreateMap<Product, UpdateProductDto>().ReverseMap();
         }
     }
 }

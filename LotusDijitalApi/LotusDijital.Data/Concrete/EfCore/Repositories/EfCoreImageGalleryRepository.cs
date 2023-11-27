@@ -1,6 +1,7 @@
 ﻿using LotusDijital.Data.Abstract;
 using LotusDijital.Data.Concrete.EfCore.Context;
 using LotusDijital.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

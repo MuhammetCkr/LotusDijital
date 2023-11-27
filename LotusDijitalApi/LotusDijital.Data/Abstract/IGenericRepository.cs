@@ -12,8 +12,8 @@ namespace LotusDijital.Data.Abstract
         Task<TEntity> GetByIdAsync(int id);
         Task<List<TEntity>> GetAllAsync();
         Task<List<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> expression);
-        Task<bool> CreateAsync(TEntity entity);
-        Task<bool> UpdateAsync(TEntity entity);
+        Task<TEntity> CreateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
         Task<bool> DeleteAsync(TEntity entity);
     }
 }

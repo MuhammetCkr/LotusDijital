@@ -36,14 +36,7 @@ namespace LotusDijital.API.Controllers
         [HttpPost("/addcategory")]
         public async Task<IActionResult> AddCategory(AddCategoryDto addCategoryDto)
         {
-            var categoryDto = new CategoryDto()
-            {
-                Image = addCategoryDto.Image,
-                IsActive = addCategoryDto.IsActive,
-                Name = addCategoryDto.Name,
-                Url = addCategoryDto.Url
-            };
-            var response = await _categoryService.CreateAsync(categoryDto);
+            var response = await _categoryService.CreateAsync(addCategoryDto);
             var jsonResponse = JsonSerializer.Serialize(response);
             return Ok(jsonResponse);
         }
@@ -51,15 +44,7 @@ namespace LotusDijital.API.Controllers
         [HttpPut("/updatecategory")]
         public async Task<IActionResult> Update(UpdateCategoryDto updateCategoryDto)
         {
-            var categoryDto = new CategoryDto()
-            {
-                Id = updateCategoryDto.Id,
-                Url = updateCategoryDto.Url,
-                IsActive = updateCategoryDto.IsActive,
-                Name = updateCategoryDto.Name,
-                Image = updateCategoryDto.Image,
-            };
-            var response = await _categoryService.UpdateAsync(categoryDto);
+            var response = await _categoryService.UpdateAsync(updateCategoryDto);
             var jsonResponse = JsonSerializer.Serialize(response);
             return Ok(jsonResponse);
         }

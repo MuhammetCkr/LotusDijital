@@ -16,22 +16,19 @@ namespace LotusDijital.API.Controllers
         {
             _productService = productService;
         }
+
         [HttpPost("/addproduct")]
         public async Task<IActionResult> AddProduct(AddProductDto addProductDto)
         {
-            var productDto = new ProductDto()
-            {
-                Categories = addProductDto.CategoryIds,
-                DocumentGalleries = addProductDto.DocumentGalleries,
-                Image = addProductDto?.Image,
-                ImageGalleries = addProductDto?.ImageGalleries,
-                IsActive = addProductDto.IsActive,
-                Link = addProductDto?.Link,
-                Name = addProductDto?.Name,
-                Url = addProductDto?.Url,
-                VideoGalleries = addProductDto?.VideoGalleries,
-            };
-            var response = await _productService.CreateAsync(productDto);
+            var response = await _productService.CreateAsync(addProductDto);
+            var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(jsonResponse);
+        }
+
+        [HttpPut("/updateProduct")]
+        public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
+        {
+            var response = await _productService.UpdateAsync(updateProductDto);
             var jsonResponse = JsonSerializer.Serialize(response);
             return Ok(jsonResponse);
         }

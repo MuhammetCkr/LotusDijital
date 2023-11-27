@@ -10,6 +10,8 @@ namespace LotusDijital.Business.Abstract
 {
     public interface IProductService : IService<ProductDto>
     {
-        public Task<AddProductDto> AddProductAsync(AddProductDto addProductDto);
+        Task<bool> CreateAsync(AddProductDto addProductDto);
+        Task<bool> UpdateAsync(UpdateProductDto updateProductDto);
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using LotusDijital.Entity;
-using LotusDijital.Shared.Dtos;
+﻿using LotusDijital.Shared.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +9,6 @@ namespace LotusDijital.Business.Abstract
 {
     public interface IImageGalleryService : IService<ImageGalleryDto>
     {
+        Task<bool> CreateAsync(AddImageGalleryDto addImageGalleryDto);
     }
 }

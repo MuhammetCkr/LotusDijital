@@ -1,4 +1,6 @@
-﻿using LotusDijital.Business.Abstract;
+﻿using AutoMapper;
+using LotusDijital.Business.Abstract;
+using LotusDijital.Data.Abstract;
 using LotusDijital.Entity;
 using LotusDijital.Shared.Dtos;
 using System;
@@ -12,12 +14,23 @@ namespace LotusDijital.Business.Concrete
 {
     public class ImageGalleryManager : IImageGalleryService
     {
-        public Task<bool> CreateAsync(ImageGalleryDto dto)
+        private readonly IMapper _mapper;
+        private readonly IImageGalleryReposiyory _imageGalleryReposiyory;
+
+        public ImageGalleryManager(IMapper mapper, IImageGalleryReposiyory imageGalleryReposiyory)
         {
-            throw new NotImplementedException();
+            _mapper = mapper;
+            _imageGalleryReposiyory = imageGalleryReposiyory;
         }
 
-        public Task<bool> DeleteAsync(ImageGalleryDto dto)
+        public async Task<bool> CreateAsync(AddImageGalleryDto addImageGalleryDto)
+        {
+            var imageGalleryAdd = _mapper.Map<ImageGallery>(addImageGalleryDto);
+            var result = await _imageGalleryReposiyory.CreateAsync(imageGalleryAdd);
+            return result != null;
+        }
+
+        public Task<bool> DeleteAsync(ImageGalleryDto tDto)
         {
             throw new NotImplementedException();
         }
@@ -33,11 +46,6 @@ namespace LotusDijital.Business.Concrete
         }
 
         public Task<List<ImageGalleryDto>> GetManyAsync(Expression<Func<ImageGalleryDto, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateAsync(ImageGalleryDto dto)
         {
             throw new NotImplementedException();
         }

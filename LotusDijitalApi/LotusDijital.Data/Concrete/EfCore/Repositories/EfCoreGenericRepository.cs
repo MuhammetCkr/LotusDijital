@@ -18,28 +18,11 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<bool> CreateAsync(TEntity entity)
-        {
-            await _dbContext.Set<TEntity>().AddAsync(entity);
-
-            var result = await _dbContext.SaveChangesAsync();
-            return result > 0;
-        }
-
         public async Task<bool> DeleteAsync(TEntity entity)
         {
-            try
-            {
-                _dbContext.Set<TEntity>().Remove(entity);
-                var result = await _dbContext.SaveChangesAsync();
-                return result > 0;
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-
+            _dbContext.Set<TEntity>().Remove(entity);
+            var result = await _dbContext.SaveChangesAsync();
+            return result > 0;
         }
 
         public async Task<List<TEntity>> GetAllAsync()
@@ -61,11 +44,27 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateAsync(TEntity entity)
+        async Task<TEntity> IGenericRepository<TEntity>.CreateAsync(TEntity entity)
         {
-             _dbContext.Set<TEntity>().Update(entity);
+            try
+            {
+                await _dbContext.Set<TEntity>().AddAsync(entity);
+                var result = await _dbContext.SaveChangesAsync();
+                return result > 0 ? entity : null;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
+        }
+
+        async Task<TEntity> IGenericRepository<TEntity>.UpdateAsync(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Update(entity);
             var result = await _dbContext.SaveChangesAsync();
-            return result > 0;
+            return result > 0 ? entity : null;
         }
     }
 }

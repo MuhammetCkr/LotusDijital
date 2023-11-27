@@ -12,8 +12,6 @@ namespace LotusDijital.Business.Abstract
         Task<TDto> GetByIdAsync(int id);
         Task<List<TDto>> GetAllAsync();
         Task<List<TDto>> GetManyAsync(Expression<Func<TDto, bool>> expression);
-        Task<bool> CreateAsync(TDto dto);
-        Task<bool> UpdateAsync(TDto dto);
-        Task<bool> DeleteAsync(TDto dto);
+        Task<bool> DeleteAsync(TDto tDto);
     }
 }

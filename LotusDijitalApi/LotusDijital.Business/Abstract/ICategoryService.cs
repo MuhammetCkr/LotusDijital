@@ -10,5 +10,8 @@ namespace LotusDijital.Business.Abstract
 {
     public interface ICategoryService : IService<CategoryDto>
     {
+        Task<bool> CreateAsync(AddCategoryDto addCategoryDto);
+        Task<bool> UpdateAsync(UpdateCategoryDto updateCategoryDto);
+
     }
 }

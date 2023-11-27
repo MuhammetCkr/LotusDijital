@@ -3,6 +3,7 @@ using System;
 using LotusDijital.Data.Concrete.EfCore.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LotusDijital.Data.Migrations
 {
     [DbContext(typeof(LotusDijitalDbContext))]
-    partial class LotusDijitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231118222557_AddImage")]
+    partial class AddImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -112,7 +115,7 @@ namespace LotusDijital.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("InnerPageId")
+                    b.Property<int>("InnerPageId")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsActive")
@@ -121,7 +124,7 @@ namespace LotusDijital.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Url")
@@ -529,7 +532,7 @@ namespace LotusDijital.Data.Migrations
             modelBuilder.Entity("LotusDijital.Entity.Image", b =>
                 {
                     b.HasOne("LotusDijital.Entity.ImageGallery", "ImageGallery")
-                        .WithMany("Images")
+                        .WithMany()
                         .HasForeignKey("ImageGalleryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -541,11 +544,15 @@ namespace LotusDijital.Data.Migrations
                 {
                     b.HasOne("LotusDijital.Entity.InnerPage", "InnerPage")
                         .WithMany("ImageGalleries")
-                        .HasForeignKey("InnerPageId");
+                        .HasForeignKey("InnerPageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LotusDijital.Entity.Product", "Product")
                         .WithMany("ImageGalleries")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("InnerPage");
 
@@ -655,11 +662,6 @@ namespace LotusDijital.Data.Migrations
             modelBuilder.Entity("LotusDijital.Entity.Category", b =>
                 {
                     b.Navigation("ProductCategories");
-                });
-
-            modelBuilder.Entity("LotusDijital.Entity.ImageGallery", b =>
-                {
-                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("LotusDijital.Entity.InnerPage", b =>

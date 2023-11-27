@@ -20,6 +20,7 @@ namespace LotusDijital.Data.Concrete.EfCore.Context
         public DbSet<Page> Pages { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<VideoGallery> VideoGalleries { get; set; }
+        public DbSet<Image> Images { get; set; }
 
 
     }
