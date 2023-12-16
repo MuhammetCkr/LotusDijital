@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lotus Digital</title>
+
+    @await Html.PartialAsync("_LinksPartial")
+    @await RenderSectionAsync("Css",false)
+</head>
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        @await Html.PartialAsync("_PreloaderPartial")
+
+        <!-- Navbar -->
+        @await Html.PartialAsync("_NavbarPartial")
+
+        <!-- Main Sidebar Container -->
+        @await Html.PartialAsync("_LeftMenuPartial")
+
+        @RenderBody()
+
+        <!-- Main Footer -->
+        @await Html.PartialAsync("_FooterPartial")
+    </div>
+    <!-- REQUIRED SCRIPTS -->
+    @await Html.PartialAsync("_ScriptsPartial")
+
+    @await RenderSectionAsync("Scripts",false)
+</body>
+</html>
