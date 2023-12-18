@@ -23,5 +23,25 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             }
             return categories;
         }
+
+        public static async Task<bool> AddCategory(CategoryModel categoryModel)
+        {
+            var category = new CategoryModel();
+            using (var httpClient = new HttpClient())
+            {
+                var serializeCategory = JsonSerializer.Serialize(categoryModel);
+                var stringContent = new StringContent(serializeCategory, System.Text.Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("http://localhost:5111/addcategory",stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    var contentResponse = await response.Content.ReadAsStringAsync();
+                    return true;
+                }
+                else
+                {
+                   return false;
+                }
+            }
+        }
     }
 }

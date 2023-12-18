@@ -1,4 +1,5 @@
 ﻿using LotusDijital.WebUI.Areas.Admin.Data;
+using LotusDijital.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LotusDijital.WebUI.Areas.Admin.Controllers
@@ -17,5 +18,12 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddCategory(CategoryModel categoryModel)
+        {
+            var response = await AreaCategoryDAL.AddCategory(categoryModel);
+            var status = response ? 200 : 0;
+            return Json(new { status = status });
+        }
     }
 }

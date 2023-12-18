@@ -19,7 +19,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <form asp-area="Admin" asp-controller="Category" asp-action="AddCategory" method="post">
+        <form id="form">
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="card card-primary">
@@ -35,12 +35,11 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="inputName">Kategori Adı</label>
-                                <input type="text" id="inputName" name="Name" class="form-control">
+                                <input type="text" asp-for="Name" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription">Kategori Açıklaması</label>
-                                <textarea name="Description" id="inputDescription" class="form-control"
-                                          rows="4"></textarea>
+                                <textarea asp-for="Url" class="form-control" rows="4"></textarea>
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -52,10 +51,41 @@
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <a href="#" class="btn btn-secondary">Vazgeç</a>
-                    <input type="submit" value="Kaydet" class="btn btn-success float-right">
+                    <input onclick="add()" value="Kaydet" class="btn btn-success float-right">
                 </div>
             </div>
         </form>
     </section>
     <!-- /.content -->
 </div>
+
+@* Ekleme *@
+@section Scripts {
+    <script>
+        function add() {
+            var formData = {
+                Name: $('#Name').val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Category/AddCategory',
+                data: formData,
+                success: function (result) {
+                    if (result.status == 200) {
+                        Swal.fire(
+                            'Bilgilendirme',
+                            'Kategori Eklendi',
+                            'success'
+                        )
+                    } else {
+                        Swal.fire(
+                            'Hata',
+                            'Kategori Eklenmedi',
+                            'error'
+                        )
+                    }
+                }
+            })
+        }
+    </script>
+}
