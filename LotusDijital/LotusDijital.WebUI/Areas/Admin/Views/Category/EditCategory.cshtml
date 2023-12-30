@@ -1,0 +1,90 @@
+﻿@model CategoryModel
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Yeni Kategori</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Project Add</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <form id="form">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Kategori Bilgileri</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="inputName">Kategori Adı</label>
+                                <input type="text" asp-for="Name" value="@Model.Name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputDescription">Kategori Açıklaması</label>
+                                <textarea asp-for="Url" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <a href="#" class="btn btn-secondary">Vazgeç</a>
+                    <input onclick="edit()" value="Güncelle" class="btn btn-success float-right">
+                </div>
+            </div>
+        </form>
+    </section>
+    <!-- /.content -->
+</div>
+
+@* Ekleme *@
+@section Scripts {
+    <script>
+        function edit() {
+            var formData = {
+                Name: $('#Name').val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Category/EditCategory',
+                data: formData,
+                success: function (result) {
+                    if (result.status == 200) {
+                        Swal.fire(
+                            'Bilgilendirme',
+                            'Kategori güncellendi',
+                            'success'
+                        )
+                    } else {
+                        Swal.fire(
+                            'Hata',
+                            'Kategori Eklenemedi',
+                            'error'
+                        )
+                    }
+                }
+            })
+        }
+    </script>
+}

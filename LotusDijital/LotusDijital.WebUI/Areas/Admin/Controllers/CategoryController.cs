@@ -25,5 +25,26 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
             var status = response ? 200 : 0;
             return Json(new { status = status });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            var response = await AreaCategoryDAL.DeleteCategory(id);
+            var status = response ? 200 : 0;
+            return Json(new { status = status });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditCategory(int id)
+        {
+            var response = await AreaCategoryDAL.GetCategoryAsync(id);
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCategory(CategoryModel categoryModel)
+        {
+
+        }
     }
 }

@@ -8,9 +8,9 @@ namespace LotusDijital.WebUI.Data
         public static async Task<List<CategoryModel>> GetCategoriesAsync()
         {
             var categories = new List<CategoryModel>();
-            using(var httpClient = new HttpClient())
+            using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync("https://localhost:44354/categories");
+                var response = await httpClient.GetAsync(ApiUrl.ApiUrlString + "categories");
                 if (response.IsSuccessStatusCode)
                 {
                     var contentRespose = await response.Content.ReadAsStringAsync();

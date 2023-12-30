@@ -1,4 +1,5 @@
 ﻿using LotusDijital.WebUI.Models;
+using System.Text;
 using System.Text.Json;
 
 namespace LotusDijital.WebUI.Areas.Admin.Data
@@ -10,7 +11,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             var categories = new List<CategoryModel>();
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync("http://localhost:5111/categories");
+                var response = await httpClient.GetAsync(ApiUrl.ApiUrlString + "categories");
                 if (response.IsSuccessStatusCode)
                 {
                     var contentRespose = await response.Content.ReadAsStringAsync();
@@ -30,18 +31,54 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             using (var httpClient = new HttpClient())
             {
                 var serializeCategory = JsonSerializer.Serialize(categoryModel);
-                var stringContent = new StringContent(serializeCategory, System.Text.Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync("http://localhost:5111/addcategory",stringContent);
+                var stringContent = new StringContent(serializeCategory, Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync(ApiUrl.ApiUrlString + "addcategory", stringContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    var contentResponse = await response.Content.ReadAsStringAsync();
                     return true;
                 }
                 else
                 {
-                   return false;
+                    return false;
                 }
             }
         }
+        
+        public static async Task<bool> DeleteCategory(int id)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync(ApiUrl.ApiUrlString + "deletecategory/" + id);
+
+                return response.IsSuccessStatusCode;
+            }
+        }
+
+        public static async Task<CategoryModel> GetCategoryAsync(int id)
+        {
+            var category = new CategoryModel();
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(ApiUrl.ApiUrlString + "category/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var contentResponse = await response.Content.ReadAsStringAsync();
+                    category = JsonSerializer.Deserialize<CategoryModel>(contentResponse);
+                }
+            }
+            return category;
+        }
+
+        public static async Task<bool> EditCategory(CategoryModel categoryModel)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var serializeCategory = JsonSerializer.Serialize(categoryModel);
+                var stringContent = new StringContent(serializeCategory, Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync(ApiUrl.ApiUrlString + "updatecategory", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+        }
+
     }
 }
