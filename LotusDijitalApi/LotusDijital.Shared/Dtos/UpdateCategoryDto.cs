@@ -10,8 +10,9 @@ namespace LotusDijital.Shared.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Url { get; set; }
         public string Image { get; set; }
         public bool IsActive { get; set; }
+        public string Details { get; set; }
+
     }
 }

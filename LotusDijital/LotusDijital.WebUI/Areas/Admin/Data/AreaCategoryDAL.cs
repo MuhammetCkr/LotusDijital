@@ -25,25 +25,26 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             return categories;
         }
 
-        public static async Task<bool> AddCategory(CategoryModel categoryModel)
+        public static async Task<int> AddCategory(AddCategoryModel addCategoryModel)
         {
             var category = new CategoryModel();
             using (var httpClient = new HttpClient())
             {
-                var serializeCategory = JsonSerializer.Serialize(categoryModel);
+                var serializeCategory = JsonSerializer.Serialize(addCategoryModel);
                 var stringContent = new StringContent(serializeCategory, Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync(ApiUrl.ApiUrlString + "addcategory", stringContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    return true;
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return responseContent == "true" ? 200 : 300;
                 }
                 else
                 {
-                    return false;
+                    return 400;
                 }
             }
         }
-        
+
         public static async Task<bool> DeleteCategory(int id)
         {
             using (var httpClient = new HttpClient())
@@ -69,14 +70,24 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             return category;
         }
 
-        public static async Task<bool> EditCategory(CategoryModel categoryModel)
+        public static async Task<int> EditCategory(EditCategoryModel editCategoryModel)
         {
             using (var httpClient = new HttpClient())
             {
-                var serializeCategory = JsonSerializer.Serialize(categoryModel);
+                var serializeCategory = JsonSerializer.Serialize(editCategoryModel);
                 var stringContent = new StringContent(serializeCategory, Encoding.UTF8, "application/json");
                 var response = await httpClient.PutAsync(ApiUrl.ApiUrlString + "updatecategory", stringContent);
-                return response.IsSuccessStatusCode;
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return responseContent == "true" ? 200 : 300;
+
+                }
+                else
+                {
+
+                    return 400;
+                }
             }
         }
 

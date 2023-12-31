@@ -19,11 +19,10 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategory(CategoryModel categoryModel)
+        public async Task<IActionResult> AddCategory(AddCategoryModel addCategoryModel)
         {
-            var response = await AreaCategoryDAL.AddCategory(categoryModel);
-            var status = response ? 200 : 0;
-            return Json(new { status = status });
+            var response = await AreaCategoryDAL.AddCategory(addCategoryModel);
+            return Json(new { status = response });
         }
 
         [HttpGet]
@@ -42,9 +41,11 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCategory(CategoryModel categoryModel)
+        public async Task<IActionResult> EditCategory(EditCategoryModel editCategoryModel, IFormFile image)
         {
-
+            editCategoryModel.Image = image == null ? "" : image.FileName;
+            var response = await AreaCategoryDAL.EditCategory(editCategoryModel);
+            return Json(new { status = response });
         }
     }
 }

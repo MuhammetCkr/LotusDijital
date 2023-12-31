@@ -1,4 +1,5 @@
 ﻿using LotusDijital.Data.Abstract;
+using LotusDijital.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LotusDijital.Data.Concrete.EfCore.Repositories
 {
-    public class EfCoreGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class EfCoreGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : Base
     {
         protected readonly DbContext _dbContext;
 
@@ -20,9 +21,18 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
 
         public async Task<bool> DeleteAsync(TEntity entity)
         {
-            _dbContext.Set<TEntity>().Remove(entity);
-            var result = await _dbContext.SaveChangesAsync();
-            return result > 0;
+            try
+            {
+                _dbContext.Set<TEntity>().Remove(entity);
+                var result = await _dbContext.SaveChangesAsync();
+                return result > 0;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
         }
 
         public async Task<List<TEntity>> GetAllAsync()
@@ -32,9 +42,9 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
 
         public async Task<TEntity> GetByIdAsync(int id)
         {
-            var entity = await _dbContext.Set<TEntity>()
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
+            var entity = await _dbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+            //.AsNoTracking()
+            //.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
 
             return entity;
         }
@@ -48,9 +58,14 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
         {
             try
             {
-                await _dbContext.Set<TEntity>().AddAsync(entity);
-                var result = await _dbContext.SaveChangesAsync();
-                return result > 0 ? entity : null;
+                var isThere = _dbContext.Set<TEntity>().Any(x => x.Name == entity.Name);
+                if (!isThere)
+                {
+                    await _dbContext.Set<TEntity>().AddAsync(entity);
+                    var result = await _dbContext.SaveChangesAsync();
+                    return result > 0 ? entity : null;
+                }
+                return null;
             }
             catch (Exception e)
             {
@@ -62,9 +77,14 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
 
         async Task<TEntity> IGenericRepository<TEntity>.UpdateAsync(TEntity entity)
         {
-            _dbContext.Set<TEntity>().Update(entity);
-            var result = await _dbContext.SaveChangesAsync();
-            return result > 0 ? entity : null;
+            var isThere = _dbContext.Set<TEntity>().Any(x => x.Name == entity.Name && x.Id != entity.Id);
+            if (!isThere)
+            {
+                _dbContext.Set<TEntity>().Update(entity);
+                var result = await _dbContext.SaveChangesAsync();
+                return result > 0 ? entity : null;
+            }
+            return null;
         }
     }
 }

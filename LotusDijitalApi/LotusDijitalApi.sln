@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusDijital.Data", "LotusD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusDijital.Entity", "LotusDijital.Entity\LotusDijital.Entity.csproj", "{85448461-904F-4852-80DF-4BB6E2A99063}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusDijital.Business", "LotusDijital.Business\LotusDijital.Business.csproj", "{BC252C70-7540-4093-8F32-998E198757FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusDijital.Business", "LotusDijital.Business\LotusDijital.Business.csproj", "{BC252C70-7540-4093-8F32-998E198757FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusDijital.Shared", "LotusDijital.Shared\LotusDijital.Shared.csproj", "{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusDijital.Shared", "LotusDijital.Shared\LotusDijital.Shared.csproj", "{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusDijital.Core", "LotusDijital.Core\LotusDijital.Core.csproj", "{55C97E71-E0CF-4188-9AE1-5B08BC9C147E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{284AD29D-CFD3-4C47-9E3C-6518208ADE2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C97E71-E0CF-4188-9AE1-5B08BC9C147E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C97E71-E0CF-4188-9AE1-5B08BC9C147E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C97E71-E0CF-4188-9AE1-5B08BC9C147E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C97E71-E0CF-4188-9AE1-5B08BC9C147E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

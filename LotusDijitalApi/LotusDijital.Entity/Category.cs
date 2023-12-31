@@ -13,6 +13,7 @@ namespace LotusDijital.Entity
             new List<ProductCategories>();
         }
         public string Image { get; set; }
+        public string Details { get; set; }
         public List<ProductCategories> ProductCategories { get; set; }
     }
 }

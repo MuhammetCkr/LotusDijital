@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LotusDijital.Core\LotusDijital.Core.csproj" />
     <ProjectReference Include="..\LotusDijital.Data\LotusDijital.Data.csproj" />
     <ProjectReference Include="..\LotusDijital.Shared\LotusDijital.Shared.csproj" />
   </ItemGroup>

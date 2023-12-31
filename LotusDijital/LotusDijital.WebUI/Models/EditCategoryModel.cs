@@ -2,7 +2,7 @@
 
 namespace LotusDijital.WebUI.Models
 {
-    public class CategoryModel
+    public class EditCategoryModel
     {
         [JsonPropertyName("Id")]
         public int Id { get; set; }
@@ -10,20 +10,13 @@ namespace LotusDijital.WebUI.Models
         [JsonPropertyName("Name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("Url")]
-        public string Url { get; set; }
-
         [JsonPropertyName("IsActive")]
         public bool IsActive { get; set; }
-
-        [JsonPropertyName("ErrorMessage")]
-        public string ErrorMessage { get; set; }
 
         [JsonPropertyName("Image")]
         public string Image { get; set; }
 
         [JsonPropertyName("Details")]
         public string Details { get; set; }
-
     }
 }

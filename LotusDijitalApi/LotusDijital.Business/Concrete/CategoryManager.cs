@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LotusDijital.Business.Abstract;
+using LotusDijital.Core;
 using LotusDijital.Data.Abstract;
 using LotusDijital.Entity;
 using LotusDijital.Shared.Dtos;
@@ -26,6 +27,7 @@ namespace LotusDijital.Business.Concrete
         public async Task<bool> CreateAsync(AddCategoryDto addCategoryDto)
         {
             var categoryAdd = _mapper.Map<Category>(addCategoryDto);
+            categoryAdd.Url = Jobs.MakeUrl(addCategoryDto.Name);
             var result = await _categoryRepository.CreateAsync(categoryAdd);
             return result != null;
         }
@@ -53,7 +55,7 @@ namespace LotusDijital.Business.Concrete
             var category = await _categoryRepository.GetByIdAsync(id);
             if (category == null)
             {
-                return new CategoryDto() { ErrorMessage = "kategori bulunamadı!" } ;
+                return new CategoryDto() { ErrorMessage = "kategori bulunamadı!" };
             }
             var categoryDto = _mapper.Map<CategoryDto>(category);
             return categoryDto;
@@ -64,16 +66,10 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateAsync(CategoryDto dto)
-        {
-            var updateCategory = _mapper.Map<Category>(dto);
-            var result = await _categoryRepository.UpdateAsync(updateCategory);
-            return result != null;
-        }
-
         public async Task<bool> UpdateAsync(UpdateCategoryDto updateCategoryDto)
         {
             var updateCategory = _mapper.Map<Category>(updateCategoryDto);
+            updateCategory.Url = Jobs.MakeUrl(updateCategoryDto.Name);
             var result = await _categoryRepository.UpdateAsync(updateCategory);
             return result != null;
         }
