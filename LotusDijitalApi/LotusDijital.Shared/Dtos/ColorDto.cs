@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace LotusDijital.Shared.Dtos
 {
-    public class ImageDto
+    public class ColorDto
     {
         public int Id { get; set; }
-        public string ImageUrl { get; set; }
-        public int? ImageGalleryId { get; set; }
+        public string Parameter { get; set; }
+        public string Value { get; set; }
     }
 }

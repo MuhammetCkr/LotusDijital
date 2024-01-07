@@ -13,9 +13,9 @@ namespace LotusDijital.Shared.Dtos
         public bool IsActive { get; set; }
         public string Image { get; set; }
         public string Link { get; set; }
-        public List<int> CategoryIds { get; set; }
-        public List<int> ImageGalleryIds { get; set; }
-        public List<int> VideoGalleryIds { get; set; }
-        public List<int> DocumentGalleryIds { get; set; }
+        public List<int> CategoryIds { get; set; } = new List<int>();
+        public List<int?> ImageGalleryIds { get; set; } = new List<int?>();
+        public List<int?> VideoGalleryIds { get; set; } = new List<int?>();
+        public List<int?> DocumentGalleryIds { get; set; } = new List<int?>();
     }
 }

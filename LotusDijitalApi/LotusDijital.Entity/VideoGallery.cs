@@ -10,9 +10,9 @@ namespace LotusDijital.Entity
     {
         public string VideoImage { get; set; }
         public string VideoEmbed { get; set; }
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
         public Product Product { get; set; }
-        public int InnerPageId { get; set; }
+        public int? InnerPageId { get; set; }
         public InnerPage InnerPage { get; set; }
     }
 }

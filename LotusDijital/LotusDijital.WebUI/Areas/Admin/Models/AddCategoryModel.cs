@@ -1,12 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace LotusDijital.WebUI.Models
+namespace LotusDijital.WebUI.Areas.Admin.Models
 {
-    public class EditCategoryModel
+    public class AddCategoryModel
     {
-        [JsonPropertyName("Id")]
-        public int Id { get; set; }
-
         [JsonPropertyName("Name")]
         public string Name { get; set; }
 

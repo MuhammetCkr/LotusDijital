@@ -1,5 +1,5 @@
 ﻿using LotusDijital.WebUI.Areas.Admin.Data;
-using LotusDijital.WebUI.Models;
+using LotusDijital.WebUI.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LotusDijital.WebUI.Areas.Admin.Controllers
@@ -19,8 +19,9 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategory(AddCategoryModel addCategoryModel)
+        public async Task<IActionResult> AddCategory(AddCategoryModel addCategoryModel, IFormFile file)
         {
+            addCategoryModel.Image = Jobs.UploadImage(file);
             var response = await AreaCategoryDAL.AddCategory(addCategoryModel);
             return Json(new { status = response });
         }

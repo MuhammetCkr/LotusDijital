@@ -17,7 +17,15 @@ namespace LotusDijital.API.Controllers
             _productService = productService;
         }
 
-        [HttpPost("/addproduct")]
+        [HttpGet("/products")]
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await _productService.GetAllAsync();
+            var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(jsonResponse);
+        }
+
+        [HttpPost("/addProduct")]
         public async Task<IActionResult> AddProduct(AddProductDto addProductDto)
         {
             var response = await _productService.CreateAsync(addProductDto);

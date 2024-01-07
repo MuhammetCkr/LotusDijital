@@ -12,8 +12,8 @@ namespace LotusDijital.Shared.Dtos
         public string Link { get; set; }
         public List<CategoryDto> Categories { get; set; }
         public List<ImageGalleryDto> ImageGalleries { get; set; }
-        //public List<VideoGalleryDto> VideoGalleries { get; set; }
-        //public List<DocumentGalleryDto> DocumentGalleries { get; set; }
+        public List<VideoGalleryDto> VideoGalleries { get; set; }
+        public List<DocumentGalleryDto> DocumentGalleries { get; set; }
 
     }
 }

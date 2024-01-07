@@ -1,4 +1,4 @@
-﻿@model AddCategoryModel
+﻿@model ProductModel
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -24,7 +24,7 @@
                 <div class="col-md-6 offset-md-3">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Kategori Bilgileri</h3>
+                            <h3 class="card-title">Ürün Bilgileri</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -34,19 +34,32 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="inputName">Kategori Adı</label>
+                                <label for="inputName">Ürün Adı</label>
                                 <input type="text" asp-for="Name" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="inputDescription">Kategori Açıklaması</label>
-                                <input type="text" asp-for="Details" class="form-control">
+                                <label for="inputDescription">Ürün Link</label>
+                                <input type="text" asp-for="Link" class="form-control">
                             </div>
+                            <div class="form-group">
+                                <label for="inputDescription">Ürün Kategori</label>
+
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="@category.Id" name="CategoryIds"
+                                               value="@category.Id" >
+                                        <label class="form-check-label" for="@category.Id">@category.Name</label>
+                                    </div>
+                                }
+                            </div>
+
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive">
                                 <label class="form-check-label" for="IsActive">Aktif mi?</label>
                             </div>
                             <div class="form-group">
-                                <label for="Image">Kategori Resim</label>
+                                <label for="Image">Ürün Resim</label>
                                 <input type="file" class="form-control-file" name="file" />
                             </div>
                         </div>
@@ -76,7 +89,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/Admin/Category/AddCategory',
+                url: '/Admin/Product/AddProduct,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -84,19 +97,19 @@
                     if (result.status == 200) {
                         Swal.fire(
                             'Bilgilendirme',
-                            'Kategori Eklendi',
+                            'Ürün Eklendi',
                             'success'
                         );
                     } else if (result.status == 400) {
                         Swal.fire(
                             'Hata',
-                            'Kategori Eklenmedi',
+                            'Ürün Eklenmedi',
                             'error'
                         );
                     } else if (result.status == 300) {
                         Swal.fire(
                             'Uyarı',
-                            'Aynı isimde kategori var!',
+                            'Aynı isimde Ürün var!',
                             'warning'
                         );
                     }

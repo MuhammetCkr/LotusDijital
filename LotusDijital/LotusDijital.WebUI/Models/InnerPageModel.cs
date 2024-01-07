@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LotusDijital.Entity
+﻿
+namespace LotusDijital.WebUI.Models
 {
-    public class InnerPage : Base
+    public class InnerPageModel : BaseModel
     {
-        public InnerPage()
-        {
-            ImageGalleries = new List<ImageGallery>();
-            VideoGalleries = new List<VideoGallery>();
-            DocumentGalleries = new List<DocumentGallery>();
-        }
         public string Title { get; set; }
         public string Contents { get; set; } // İçerik
         public string ShortContent { get; set; } // Kısa içerik
@@ -30,11 +19,10 @@ namespace LotusDijital.Entity
         public string PageTitle { get; set; }
         public string PageDescription { get; set; }
         public string PageKeyword { get; set; }
-        public Page Page { get; set; }
+        public PageModel Page { get; set; }
         public int? PageId { get; set; }
-        public List<ImageGallery> ImageGalleries { get; set; }
-        public List<VideoGallery> VideoGalleries { get; set; }
-        public List<DocumentGallery> DocumentGalleries { get; set; }
-
+        public List<ImageGalleryModel> ImageGalleries { get; set; }
+        public List<VideoGalleryModel> VideoGalleries { get; set; }
+        public List<DocumentGalleryModel> DocumentGalleries { get; set; }
     }
 }

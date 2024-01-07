@@ -1,4 +1,5 @@
-﻿using LotusDijital.WebUI.Models;
+﻿using LotusDijital.WebUI.Areas.Admin.Models;
+using LotusDijital.WebUI.Models;
 using System.Text;
 using System.Text.Json;
 
@@ -27,7 +28,6 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
 
         public static async Task<int> AddCategory(AddCategoryModel addCategoryModel)
         {
-            var category = new CategoryModel();
             using (var httpClient = new HttpClient())
             {
                 var serializeCategory = JsonSerializer.Serialize(addCategoryModel);

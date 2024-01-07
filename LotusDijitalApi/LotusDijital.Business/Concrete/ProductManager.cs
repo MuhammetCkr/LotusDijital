@@ -31,7 +31,7 @@ namespace LotusDijital.Business.Concrete
             if (result == null)
                 return false;
             
-            var productCategoryAdd = await _productRepository.SaveProductCategoriesAsync(result.Id, addProductDto.CategoryIds, addProductDto.ImageGalleryIds,addProductDto.VideoGalleryIds, addProductDto.DocumentGalleryIds);
+            var productCategoryAdd = await _productRepository.SaveProductCategoriesAsync(result.Id, addProductDto.CategoryIds);
             return productCategoryAdd;
         }
 
@@ -40,9 +40,15 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<List<ProductDto>> GetAllAsync()
+        public async Task<List<ProductDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var products = await _productRepository.GetAllAsync();
+            if (products.Count == 0)
+            {
+                return new List<ProductDto> { new ProductDto() { ErrorMessage = "Hiç ürün bulunamadı!" } };
+            }
+            var productDtos = _mapper.Map<List<ProductDto>>(products);
+            return productDtos;
         }
 
         public Task<ProductDto> GetByIdAsync(int id)

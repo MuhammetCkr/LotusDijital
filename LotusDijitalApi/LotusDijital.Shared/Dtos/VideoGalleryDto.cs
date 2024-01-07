@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace LotusDijital.Shared.Dtos
 {
-    public class ImageGalleryDto : BaseDto
+    public class VideoGalleryDto : BaseDto
     {
+        public string VideoImage { get; set; }
+        public string VideoEmbed { get; set; }
         public int? ProductId { get; set; }
         public int? InnerPageId { get; set; }
-        public List<ImageDto> Images { get; set; }
-
     }
 }

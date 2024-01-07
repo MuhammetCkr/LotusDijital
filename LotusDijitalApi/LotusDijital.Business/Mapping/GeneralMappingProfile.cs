@@ -14,13 +14,25 @@ namespace LotusDijital.Business.Mapping
         public GeneralMappingProfile()
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
-            //CreateMap<Color, ColorDto>().ReverseMap();
-            //CreateMap<DocumentGallery, DocumentGalleryDto>().ReverseMap();
-            CreateMap<ImageGallery, ImageGalleryDto>().ReverseMap();
-            //CreateMap<InnerPage, InnerPageDto>().ReverseMap();
-            //CreateMap<Page, PageDto>().ReverseMap();
-            CreateMap<Product, ProductDto>().ForMember(pdto => pdto.Categories, opt => opt.MapFrom(p => p.ProductCategories.Select(pc => pc.Category))).ReverseMap();
-            //CreateMap<VideoGallery, VideoGalleryDto>().ReverseMap();
+            CreateMap<Color, ColorDto>().ReverseMap();
+            CreateMap<VideoGallery, VideoGalleryDto>().ReverseMap();
+            CreateMap<DocumentGallery, DocumentGalleryDto>().ReverseMap();
+            CreateMap<Image, ImageDto>();
+
+            CreateMap<ImageGallery, ImageGalleryDto>().ForMember(imgDto => imgDto.Images, opt => opt.MapFrom(src => src.Images)).ReverseMap();
+
+            CreateMap<InnerPage, InnerPageDto>()
+                .ForMember(inpDto => inpDto.ImageGalleries, opt => opt.MapFrom(src => src.ImageGalleries))
+                .ForMember(inpDto => inpDto.VideoGalleries, opt => opt.MapFrom(src => src.VideoGalleries))
+                .ForMember(inpDto => inpDto.DocumentGalleries, opt => opt.MapFrom(src => src.DocumentGalleries))
+                .ReverseMap();
+
+            CreateMap<Page, PageDto>().ForMember(dest => dest.InnerPages, opt => opt.MapFrom(src => src.InnerPages)).ReverseMap();
+
+            CreateMap<Product, ProductDto>().ForMember(pdto => pdto.Categories, opt => opt.MapFrom(p => p.ProductCategories.Select(pc => pc.Category)))
+            .ForMember(pdto => pdto.ImageGalleries, opt => opt.MapFrom(src => src.ImageGalleries))
+            .ForMember(pdto => pdto.VideoGalleries, opt => opt.MapFrom(src => src.VideoGalleries))
+            .ForMember(pdto => pdto.DocumentGalleries, opt => opt.MapFrom(src => src.DocumentGalleries)).ReverseMap();
 
             CreateMap<Product, AddProductDto>().ReverseMap();
             CreateMap<Category, AddCategoryDto>().ReverseMap();

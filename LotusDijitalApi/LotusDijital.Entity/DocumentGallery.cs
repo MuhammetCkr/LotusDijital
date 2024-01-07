@@ -8,9 +8,9 @@ namespace LotusDijital.Entity
 {
     public class DocumentGallery : Base
     {
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
         public Product Product { get; set; }
-        public int InnerPageId { get; set; }
+        public int? InnerPageId { get; set; }
         public InnerPage InnerPage { get; set; }
 
     }

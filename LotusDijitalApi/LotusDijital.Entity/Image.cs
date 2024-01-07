@@ -11,7 +11,7 @@ namespace LotusDijital.Entity
         public int Id { get; set; }
         public string ImageUrl { get; set; }
         public ImageGallery ImageGallery { get; set; }
-        public int ImageGalleryId { get; set; }
+        public int? ImageGalleryId { get; set; }
 
     }
 }
