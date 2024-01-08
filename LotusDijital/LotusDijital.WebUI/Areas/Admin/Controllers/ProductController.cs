@@ -25,11 +25,13 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
             return View(productModel);
         }
 
-        [HttpPost("addProduct")]
+        [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductModel addProductModel, IFormFile image)
         {
+            if (image != null)
+                addProductModel.Image = Jobs.UploadImage(image);
             var response = await AreaProductDAL.AddProductAsync(addProductModel);
-            return View(response);
+            return Json(new { status = response });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LotusDijital.WebUI.Areas.Admin.Models;
 using LotusDijital.WebUI.Models;
+using System.Text;
 using System.Text.Json;
 
 namespace LotusDijital.WebUI.Areas.Admin.Data
@@ -30,7 +31,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             using (var httpClient = new HttpClient())
             {
                 var serializeProduct = JsonSerializer.Serialize(addProductModel);
-                var stringContent = new StringContent(serializeProduct);
+                var stringContent = new StringContent(serializeProduct, Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync(ApiUrl.ApiUrlString + "addProduct", stringContent);
                 if (response.IsSuccessStatusCode)
                 {
