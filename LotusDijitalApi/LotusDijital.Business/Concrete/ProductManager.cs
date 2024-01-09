@@ -30,9 +30,12 @@ namespace LotusDijital.Business.Concrete
 
             if (result == null)
                 return false;
-            
-            var productCategoryAdd = await _productRepository.SaveProductCategoriesAsync(result.Id, addProductDto.CategoryIds);
-            return productCategoryAdd;
+
+            if (addProductDto.CategoryIds != null && addProductDto.CategoryIds.Count > 0)
+            {
+                await _productRepository.SaveProductCategoriesAsync(result.Id, addProductDto.CategoryIds);
+            }
+            return true;
         }
 
         public Task<bool> DeleteAsync(ProductDto dto)
