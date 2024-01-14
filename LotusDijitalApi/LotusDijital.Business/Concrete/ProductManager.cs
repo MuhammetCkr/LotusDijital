@@ -38,9 +38,11 @@ namespace LotusDijital.Business.Concrete
             return true;
         }
 
-        public Task<bool> DeleteAsync(ProductDto dto)
+        public async Task<bool> DeleteAsync(ProductDto dto)
         {
-            throw new NotImplementedException();
+            var product = _mapper.Map<Product>(dto);
+            var response = await _productRepository.DeleteAsync(product);
+            return response;
         }
 
         public async Task<List<ProductDto>> GetAllAsync()
@@ -54,9 +56,15 @@ namespace LotusDijital.Business.Concrete
             return productDtos;
         }
 
-        public Task<ProductDto> GetByIdAsync(int id)
+        public async Task<ProductDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var product = await _productRepository.GetByIdAsync(id);
+            if (product != null)
+            {
+                var productDto = _mapper.Map<ProductDto>(product);
+                return productDto;
+            }
+            return new ProductDto { ErrorMessage = "Ürün bulunamadı" };
         }
 
         public Task<List<ProductDto>> GetManyAsync(Expression<Func<ProductDto, bool>> expression)

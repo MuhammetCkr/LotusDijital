@@ -42,5 +42,14 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
                     return 400;
             }
         }
+
+        public static async Task<bool> DeleteProduct(int id)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync(ApiUrl.ApiUrlString + "deleteProduct/" + id);
+                return response.IsSuccessStatusCode;
+            }
+        }
     }
 }

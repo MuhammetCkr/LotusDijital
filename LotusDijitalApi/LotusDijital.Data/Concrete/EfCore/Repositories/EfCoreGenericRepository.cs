@@ -23,7 +23,8 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
         {
             try
             {
-                _dbContext.Set<TEntity>().Remove(entity);
+                var existingEntity = await _dbContext.Set<TEntity>().FindAsync(entity.Id);
+                _dbContext.Set<TEntity>().Remove(existingEntity);
                 var result = await _dbContext.SaveChangesAsync();
                 return result > 0;
             }

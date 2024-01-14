@@ -40,5 +40,14 @@ namespace LotusDijital.API.Controllers
             var jsonResponse = JsonSerializer.Serialize(response);
             return Ok(jsonResponse);
         }
+
+        [HttpDelete("/deleteProduct/{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var productDto = await _productService.GetByIdAsync(id);
+            var response = await _productService.DeleteAsync(productDto);
+            var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(response);
+        }
     }
 }

@@ -33,5 +33,13 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
             var response = await AreaProductDAL.AddProductAsync(addProductModel);
             return Json(new { status = response });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var response = await AreaProductDAL.DeleteProduct(id);
+            var status = response ? 200 : 0;
+            return Json(new { status = status });
+        }
     }
 }

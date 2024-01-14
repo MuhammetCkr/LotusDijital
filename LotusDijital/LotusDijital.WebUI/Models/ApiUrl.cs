@@ -2,6 +2,6 @@
 {
     public static class ApiUrl
     {
-         public static string ApiUrlString = "https://localhost:44354/";
+         public static string ApiUrlString = "https://localhost:7240/";
     }
 }
