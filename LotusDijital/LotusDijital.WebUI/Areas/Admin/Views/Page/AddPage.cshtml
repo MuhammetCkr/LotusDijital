@@ -1,0 +1,74 @@
+﻿@model AddPageModel
+
+<section class="content">
+    <form id="form" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Sayfa Bilgileri</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="inputName">Sayfa Adı</label>
+                            <input type="text" asp-for="Name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDescription">Sayfa Başlık</label>
+                            <input type="text" asp-for="Title" class="form-control">
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive">
+                            <label class="form-check-label" for="IsActive">Aktif mi?</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <input onclick="add()" value="Kaydet" class="btn btn-success float-right">
+            </div>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    @* Ekleme *@
+    <script>
+        function add() {
+            var form = document.getElementById("form");
+            var formData = new FormData(form);
+
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Page/AddPage',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    if (result.status == 200) {
+                        Swal.fire(
+                            'Bilgilendirme',
+                            'Sayfa Eklendi',
+                            'success'
+                        );
+                    } else if (result.status == 400) {
+                        Swal.fire(
+                            'Hata',
+                            'Sayfa Eklenmedi',
+                            'error'
+                        );
+                    } else if (result.status == 300) {
+                        Swal.fire(
+                            'Uyarı',
+                            'Aynı isimde Sayfa var!',
+                            'warning'
+                        );
+                    }
+                }
+            });
+        }
+    </script>
+}

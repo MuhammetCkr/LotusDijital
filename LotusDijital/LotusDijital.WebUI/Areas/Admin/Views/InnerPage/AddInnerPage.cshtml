@@ -1,0 +1,227 @@
+﻿@model AddInnerPageModel
+
+<form id="form" enctype="multipart/form-data">
+    <input type="hidden" asp-for="PageId" value="@ViewBag.PageId"/>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">İç Sayfa Bilgileri</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Sayfa Adı :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Name" class="form-control" onkeyup="urlName()" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Url :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Url" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Sayfa Başlık :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Title" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">İçerik :</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" asp-for="Contents"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Kısa İçerik :</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" asp-for="ShortContent"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Resim :</label>
+                        <div class="col-lg-8">
+                            <input type="file" asp-for="Image" class="form-control" onchange="showImage(event)"/>
+                        </div>
+                    </div>
+
+                    <div id="resimGoster" style="display: none; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img id="gosterilenResim" alt="Seçilen Resim" style="max-width: 100%; max-height: 200px;" src="">
+                            </div>
+                        </div>
+                        <a class="btn btn-danger mt-2" onclick="removeImage()">Sil</a>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Banner :</label>
+                        <div class="col-lg-8">
+                            <input type="file" asp-for="Banner" class="form-control" onchange="showBanner(event)" />
+                        </div>
+                    </div>
+
+                    <div id="bannerGoster" style="display: none; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img id="gosterilenBanner" alt="Seçilen Banner" style="max-width: 100%; max-height: 200px;" src="">
+                            </div>
+                        </div>
+                        <a class="btn btn-danger mt-2" onclick="removeBanner()">Sil</a>
+                    </div>
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Anasayfa da gösterilsin mi? </label>
+                        <div class="col-lg-8 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="IsHome">
+                        </div>
+                    </div>
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Aktif mi? </label>
+                        <div class="col-lg-8 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <input onclick="add()" value="Kaydet" class="btn btn-success float-right">
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @* Url *@
+    <script>
+        function urlName() {
+            var name = document.getElementById("Name").value;
+            var splitName = name.split(" ");
+            var joinName = splitName.join("-");
+            var shortName = joinName.toLocaleLowerCase("tr-TR");
+
+            var donusumTablosu = {
+                "ç": "c",
+                "ğ": "g",
+                "ı": "i",
+                "ö": "o",
+                "ş": "s",
+                "ü": "u",
+                " ": "",// Boşlukları kaldır
+                ",": "",
+                "?": "",
+                ";": "",
+                ":": "",
+                "/": "",
+                "=": "",
+                ".": ""
+            };
+
+            shortName = shortName.replace(/[çğıöşü ]/g, function (harf) {
+                return donusumTablosu[harf];
+            });
+            document.getElementById("Url").value = shortName;
+        }
+    </script>
+
+    @* Resim *@
+    <script>
+        function showImage(event) {
+            var input = event.target;
+            var resimGoster = document.getElementById('resimGoster');
+            var gosterilenResim = document.getElementById('gosterilenResim');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    gosterilenResim.setAttribute('src', e.target.result);
+                    resimGoster.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeImage() {
+            var resimGoster = document.getElementById('resimGoster');
+            var image = document.getElementById('Image');
+
+            resimGoster.style.display = "none";
+            image.value = "";
+
+        }
+       
+    </script>
+
+        @* Banner *@
+    <script>
+        function showBanner(event) {
+            var input = event.target;
+            var bannerGoster = document.getElementById('bannerGoster');
+            var gosterilenBanner = document.getElementById('gosterilenBanner');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    gosterilenBanner.setAttribute('src', e.target.result);
+                    bannerGoster.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeBanner() {
+            var bannerGoster = document.getElementById('bannerGoster');
+            var banner = document.getElementById('Banner');
+
+            bannerGoster.style.display = "none";
+            banner.value = "";
+
+        }
+       
+    </script>
+
+    @* Ekleme *@
+    <script>
+        function add() {
+            var form = document.getElementById("form");
+            var formData = new FormData(form);
+
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/InnerPage/AddInnerPage',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    if (result.status == 200) {
+                        Swal.fire(
+                            'Bilgilendirme',
+                            'Sayfa Eklendi',
+                            'success'
+                        );
+                    } else if (result.status == 400) {
+                        Swal.fire(
+                            'Hata',
+                            'Sayfa Eklenmedi',
+                            'error'
+                        );
+                    } else if (result.status == 300) {
+                        Swal.fire(
+                            'Uyarı',
+                            'Aynı isimde Sayfa var!',
+                            'warning'
+                        );
+                    }
+                }
+            });
+        }
+    </script>
+}

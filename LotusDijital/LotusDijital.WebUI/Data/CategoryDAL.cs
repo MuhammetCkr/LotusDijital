@@ -1,4 +1,5 @@
-﻿using LotusDijital.WebUI.Models;
+﻿using LotusDijital.WebUI.Areas.Admin.Models;
+using LotusDijital.WebUI.Models;
 using System.Text.Json;
 
 namespace LotusDijital.WebUI.Data
@@ -10,7 +11,7 @@ namespace LotusDijital.WebUI.Data
             var categories = new List<CategoryModel>();
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync(ApiUrl.ApiUrlString + "categories");
+                var response = await httpClient.GetAsync(Jobs.ApiUrlString + "/categories");
                 if (response.IsSuccessStatusCode)
                 {
                     var contentRespose = await response.Content.ReadAsStringAsync();

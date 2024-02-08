@@ -1,0 +1,30 @@
+﻿@model PageModel
+<a class="btn btn-outline-primary" asp-area="Admin" asp-controller="InnerPage" asp-action="AddInnerPage" asp-route-pageId="@Model.Id">İç Sayfa Ekle</a>
+<table class="table-fill">
+    <thead>
+        <tr>
+            <th>Başlık</th>
+            <th>Durum</th>
+            <th>Sıra No</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.InnerPages)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>
+                    <div class="form-check form-switch d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" role="switch" asp-for="@item.IsActive" />
+                    </div>
+                </td>
+                <td>@item.SequenceNumber</td>
+                <td>
+                    <a class="btn btn-outline-success" asp-controller="" asp-action="" asp-route-id="@item.Id"><i class="fas fa-pen" style="padding-right: 6%;"></i></a>
+                    <a class="btn btn-outline-danger" onclick="deleteProduct('@item.Id')"><i class="fas fa-times"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

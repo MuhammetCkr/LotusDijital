@@ -17,7 +17,7 @@ namespace LotusDijital.Business.Mapping
             CreateMap<Color, ColorDto>().ReverseMap();
             CreateMap<VideoGallery, VideoGalleryDto>().ReverseMap();
             CreateMap<DocumentGallery, DocumentGalleryDto>().ReverseMap();
-            CreateMap<Image, ImageDto>();
+            CreateMap<Image, ImageDto>().ReverseMap();
 
             CreateMap<ImageGallery, ImageGalleryDto>().ForMember(imgDto => imgDto.Images, opt => opt.MapFrom(src => src.Images)).ReverseMap();
 
@@ -37,9 +37,13 @@ namespace LotusDijital.Business.Mapping
             CreateMap<Product, AddProductDto>().ReverseMap();
             CreateMap<Category, AddCategoryDto>().ReverseMap();
             CreateMap<ImageGallery, AddImageGalleryDto>().ReverseMap();
+            CreateMap<Page, AddPageDto>().ReverseMap();
+            CreateMap<InnerPage, AddInnerPageDto>().ReverseMap();
 
             CreateMap<Category, UpdateCategoryDto>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();
+            CreateMap<Page, UpdatePageDto>().ReverseMap();
+
         }
     }
 }

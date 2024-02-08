@@ -1,106 +1,53 @@
 ﻿@model List<CategoryModel>
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Kategorileri Yönet</h1>
-                </div>
-                <div class="col-sm-6 d-flex justify-content-end">
-                    <a class="btn btn-sm btn-primary" asp-area="Admin" asp-controller="Category" asp-action="AddCategory">Kategori Ekle</a>
-                </div>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Kategorileri Yönet</h1>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <table id="categoryTable" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Ad</th>
-                                        <th>Açıklama</th>
-                                        <th>İşlemler</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var category in Model.OrderBy(x => x.Id))
-                                    {
-                                        <tr>
-                                            <td>@category.Name</td>
-                                            <td></td>
-                                            <td>
-                                                <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Category" asp-action="EditCategory"
-                                                   asp-route-id="@category.Id">Düzenle</a>
-@*                                                 <a class="btn btn-danger btn-sm" asp-area="Admin" asp-controller="Category" asp-action="DeleteCategory"
-                                                   asp-route-id="@category.Id">Sil</a> *@
-                                                <a class="btn btn-danger btn-sm" onclick="deleteCategory(@category.Id)">Sil</a>
-                                            </td>
-                                        </tr>
-                                    }
-
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Ad</th>
-                                        <th>Açıklama</th>
-                                        <th>İşlemler</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <!-- /.col -->
+            <div class="col-sm-6 d-flex justify-content-end">
+                <a class="btn btn-sm btn-primary" asp-area="Admin" asp-controller="Category" asp-action="AddCategory">Kategori Ekle</a>
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-</div>
+    </div>
+</section>
 
-@section Css{
-    <!-- DataTables -->
-    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="categoryTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Ad</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var category in Model.OrderBy(x => x.Id))
+                                {
+                                    <tr>
+                                        <td>@category.Name</td>
+                                        <td>
+                                            <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Category" asp-action="EditCategory" asp-route-id="@category.Id">Düzenle</a>
+                                            <a class="btn btn-danger btn-sm" onclick="deleteCategory(@category.Id)">Sil</a>
+                                        </td>
+                                    </tr>
+                                }
 
-@section Scripts{
-    <!-- DataTables  & Plugins -->
-    <script src="~/admin/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="~/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="~/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="~/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="~/admin/plugins/jszip/jszip.min.js"></script>
-    <script src="~/admin/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="~/admin/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="~/admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="~/admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="~/admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script>
-        $(function () {
-            $("#categoryTable").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf"]
-            }).buttons().container().appendTo('#categoryTable_wrapper .col-md-6:eq(0)');
-        });
-    </script>
-
+@section Scripts {
     <script>
         function deleteCategory(id) {
             console.log(id);
@@ -143,7 +90,6 @@
                 }
             });
         }
-
     </script>
 }
 

@@ -3,6 +3,8 @@
     public static class Jobs
     {
         public const string ImageRoute = "/content/images/";
+        public static string ApiUrlString = "https://localhost:44354";
+
 
         public static string UploadImage(IFormFile formFile)
         {

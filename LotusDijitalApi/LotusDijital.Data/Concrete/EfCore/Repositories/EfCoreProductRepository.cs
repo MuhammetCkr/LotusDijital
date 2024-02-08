@@ -26,9 +26,9 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
                 ProductId = productId,
                 CategoryId = catId
             }).ToList();
-            _dbContext.AddRange(productCategories);
+            context.AddRange(productCategories);
 
-            var result = await _dbContext.SaveChangesAsync();
+            var result = await context.SaveChangesAsync();
             return result > 0;
 
         }

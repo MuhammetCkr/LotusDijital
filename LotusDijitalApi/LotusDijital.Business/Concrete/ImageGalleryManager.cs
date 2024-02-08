@@ -16,17 +16,26 @@ namespace LotusDijital.Business.Concrete
     {
         private readonly IMapper _mapper;
         private readonly IImageGalleryReposiyory _imageGalleryReposiyory;
+        private readonly IImageService _imageService;
 
-        public ImageGalleryManager(IMapper mapper, IImageGalleryReposiyory imageGalleryReposiyory)
+        public ImageGalleryManager(IMapper mapper, IImageGalleryReposiyory imageGalleryReposiyory, IImageService imageService)
         {
             _mapper = mapper;
             _imageGalleryReposiyory = imageGalleryReposiyory;
+            _imageService = imageService;
         }
 
         public async Task<bool> CreateAsync(AddImageGalleryDto addImageGalleryDto)
         {
-            var imageGalleryAdd = _mapper.Map<ImageGallery>(addImageGalleryDto);
-            var result = await _imageGalleryReposiyory.CreateAsync(imageGalleryAdd);
+            var imageGallery = _mapper.Map<ImageGallery>(addImageGalleryDto);
+            var result = await _imageGalleryReposiyory.CreateAsync(imageGallery);
+            
+                foreach (var image in addImageGalleryDto.Images)
+                {
+                    image.ImageGalleryId = result.Id;
+                    var r = _imageService.CreateAsync(image);
+                }
+            
             return result != null;
         }
 

@@ -12,7 +12,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             var products = new List<ProductModel>();
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync(ApiUrl.ApiUrlString + "products");
+                var response = await httpClient.GetAsync(Jobs.ApiUrlString + "/products");
                 if (response.IsSuccessStatusCode)
                 {
                     var contentResponse = await response.Content.ReadAsStringAsync();
@@ -32,7 +32,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             {
                 var serializeProduct = JsonSerializer.Serialize(addProductModel);
                 var stringContent = new StringContent(serializeProduct, Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync(ApiUrl.ApiUrlString + "addProduct", stringContent);
+                var response = await httpClient.PostAsync(Jobs.ApiUrlString + "/addProduct", stringContent);
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
@@ -47,7 +47,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
         {
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.DeleteAsync(ApiUrl.ApiUrlString + "deleteProduct/" + id);
+                var response = await httpClient.DeleteAsync(Jobs.ApiUrlString + "/deleteProduct/" + id);
                 return response.IsSuccessStatusCode;
             }
         }

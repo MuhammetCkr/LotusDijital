@@ -12,7 +12,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             var categories = new List<CategoryModel>();
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync(ApiUrl.ApiUrlString + "categories");
+                var response = await httpClient.GetAsync(Jobs.ApiUrlString + "/categories");
                 if (response.IsSuccessStatusCode)
                 {
                     var contentRespose = await response.Content.ReadAsStringAsync();
@@ -32,7 +32,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             {
                 var serializeCategory = JsonSerializer.Serialize(addCategoryModel);
                 var stringContent = new StringContent(serializeCategory, Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync(ApiUrl.ApiUrlString + "addcategory", stringContent);
+                var response = await httpClient.PostAsync(Jobs.ApiUrlString + "/addcategory", stringContent);
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
@@ -49,7 +49,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
         {
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.DeleteAsync(ApiUrl.ApiUrlString + "deletecategory/" + id);
+                var response = await httpClient.DeleteAsync(Jobs.ApiUrlString + "/deletecategory/" + id);
 
                 return response.IsSuccessStatusCode;
             }
@@ -60,7 +60,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             var category = new CategoryModel();
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync(ApiUrl.ApiUrlString + "category/" + id);
+                var response = await httpClient.GetAsync(Jobs.ApiUrlString + "/category/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     var contentResponse = await response.Content.ReadAsStringAsync();
@@ -76,7 +76,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             {
                 var serializeCategory = JsonSerializer.Serialize(editCategoryModel);
                 var stringContent = new StringContent(serializeCategory, Encoding.UTF8, "application/json");
-                var response = await httpClient.PutAsync(ApiUrl.ApiUrlString + "updatecategory", stringContent);
+                var response = await httpClient.PutAsync(Jobs.ApiUrlString + "/updatecategory", stringContent);
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();

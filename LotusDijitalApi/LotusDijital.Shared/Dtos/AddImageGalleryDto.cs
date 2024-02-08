@@ -9,7 +9,7 @@ namespace LotusDijital.Shared.Dtos
     public class AddImageGalleryDto
     {
         public string Name { get; set; }
-        public List<int> ImageIds { get; set; }
+        public List<ImageDto> Images { get; set; }
         public bool IsActive { get; set; }
 
     }

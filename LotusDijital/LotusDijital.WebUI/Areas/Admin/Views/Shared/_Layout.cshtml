@@ -1,33 +1,43 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lotus Digital</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Abstract" content="" />
+    <meta name="Author" content="" />
+    <title>@TempData["Title"]</title>
+    <!--Kelimeler Max. 5 Kelime -->
+    <script src="~/js/checkInput.js"></script>
+    <meta name="keywords" content="" />
 
+    <!-- Sayfa Açıklaması Max. 115 Karakter -->
+    <meta name="description" content="" />
+    <meta property="og:description" content="" />
+    <meta itemprop="description" content="" />
+    <meta name="twitter:description" content="" />
     @await Html.PartialAsync("_LinksPartial")
-    @await RenderSectionAsync("Css",false)
+    @await RenderSectionAsync("Css", false)
+    @await RenderSectionAsync("Links", false)
+
 </head>
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body >
+    <!--Container Main start-->
     <div class="wrapper">
-
-        <!-- Preloader -->
-        @await Html.PartialAsync("_PreloaderPartial")
-
-        <!-- Navbar -->
-        @await Html.PartialAsync("_NavbarPartial")
-
-        <!-- Main Sidebar Container -->
+        <!-- Sidebar  -->
         @await Html.PartialAsync("_LeftMenuPartial")
-
-        @RenderBody()
-
-        <!-- Main Footer -->
-        @await Html.PartialAsync("_FooterPartial")
+        <div id="content">
+            <!-- Page Content  -->
+            @RenderBody()
+        </div>
     </div>
-    <!-- REQUIRED SCRIPTS -->
+    <footer class="border-top footer text-muted">
+        <div class="container">
+        </div>
+    </footer>
+    <!--Container Main end-->
     @await Html.PartialAsync("_ScriptsPartial")
-
-    @await RenderSectionAsync("Scripts",false)
+    @await RenderSectionAsync("Scripts", false)
 </body>
 </html>
+

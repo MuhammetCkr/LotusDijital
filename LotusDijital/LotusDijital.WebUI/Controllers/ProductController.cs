@@ -8,5 +8,11 @@ namespace LotusDijital.WebUI.Controllers
         {
             return View();
         }
+
+        [HttpGet("productList")]
+        public IActionResult ProductList()
+        {
+            return View();
+        }
     }
 }

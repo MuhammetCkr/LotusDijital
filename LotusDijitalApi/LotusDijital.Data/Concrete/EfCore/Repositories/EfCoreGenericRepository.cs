@@ -50,9 +50,10 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
             return entity;
         }
 
-        public Task<List<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> expression)
+        public async Task<List<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> expression)
         {
-            throw new NotImplementedException();
+            var entityList = await _dbContext.Set<TEntity>().Where(expression).ToListAsync();
+            return entityList;
         }
 
         async Task<TEntity> IGenericRepository<TEntity>.CreateAsync(TEntity entity)

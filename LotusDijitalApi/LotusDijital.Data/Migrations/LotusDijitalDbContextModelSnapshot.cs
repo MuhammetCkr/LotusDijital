@@ -99,7 +99,13 @@ namespace LotusDijital.Data.Migrations
                     b.Property<int?>("ImageGalleryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
