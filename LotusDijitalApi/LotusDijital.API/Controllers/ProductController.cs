@@ -3,6 +3,7 @@ using LotusDijital.Shared.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace LotusDijital.API.Controllers
 {
@@ -22,6 +23,18 @@ namespace LotusDijital.API.Controllers
         {
             var response = await _productService.GetAllAsync();
             var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(jsonResponse);
+        }
+
+        [HttpGet("/productsWithCategories")]
+        public async Task<IActionResult> GetProductsWithCategories()
+        {
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            };
+            var response = await _productService.GetProductsWithCategories();
+            var jsonResponse = JsonSerializer.Serialize(response,options);
             return Ok(jsonResponse);
         }
 

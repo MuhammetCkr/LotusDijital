@@ -29,13 +29,13 @@ namespace LotusDijital.Business.Concrete
         {
             var imageGallery = _mapper.Map<ImageGallery>(addImageGalleryDto);
             var result = await _imageGalleryReposiyory.CreateAsync(imageGallery);
-            
-                foreach (var image in addImageGalleryDto.Images)
-                {
-                    image.ImageGalleryId = result.Id;
-                    var r = _imageService.CreateAsync(image);
-                }
-            
+
+            foreach (var image in addImageGalleryDto.Images)
+            {
+                image.ImageGalleryId = result.Id;
+                var r = _imageService.CreateAsync(image);
+            }
+
             return result != null;
         }
 
@@ -52,6 +52,20 @@ namespace LotusDijital.Business.Concrete
         public Task<ImageGalleryDto> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ImageGalleryDto> GetImageGalleryDto(int id)
+        {
+            var imageGallery = await _imageGalleryReposiyory.GetImageGallery(id);
+            var imageGalleryDto = _mapper.Map<ImageGalleryDto>(imageGallery);
+            return imageGalleryDto;
+        }
+
+        public async Task<List<ImageGalleryDto>> GetImageGalleryListDto()
+        {
+            var imageGalleryList = await _imageGalleryReposiyory.GetImageGalleryListDto();
+            var imageGalleryListDto = _mapper.Map<List<ImageGalleryDto>>(imageGalleryList);
+            return imageGalleryListDto;
         }
 
         public Task<List<ImageGalleryDto>> GetManyAsync(Expression<Func<ImageGalleryDto, bool>> expression)

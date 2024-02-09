@@ -9,5 +9,7 @@ namespace LotusDijital.Data.Abstract
 {
     public interface ICategoryRepository : IGenericRepository<Category>
     {
+        Task<List<Category>> GetCategoriesWithProducts();
+
     }
 }

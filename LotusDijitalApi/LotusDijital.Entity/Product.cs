@@ -15,7 +15,13 @@ namespace LotusDijital.Entity
             ImageGalleries = new List<ImageGallery>();
             DocumentGalleries = new List<DocumentGallery>();
         }
+        public string Title { get; set; }
+        public string Contents { get; set; } // İçerik
+        public string ShortContent { get; set; } // Kısa içerik
         public string Image { get; set; }
+        public string SmallImage { get; set; }
+        public string Banner { get; set; }
+        public bool IsHome { get; set; }
         public string Link { get; set; }
         public List<ProductCategories> ProductCategories { get; set; }
         public List<ImageGallery> ImageGalleries { get; set; }

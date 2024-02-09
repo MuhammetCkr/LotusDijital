@@ -61,6 +61,13 @@ namespace LotusDijital.Business.Concrete
             return categoryDto;
         }
 
+        public async Task<List<CategoryDto>> GetCategoriesWithProducts()
+        {
+            var categoryList = await _categoryRepository.GetCategoriesWithProducts();
+            var categoryListDto = _mapper.Map<List<CategoryDto>>(categoryList);
+            return categoryListDto;
+        }
+
         public Task<List<CategoryDto>> GetManyAsync(Expression<Func<CategoryDto, bool>> expression)
         {
             throw new NotImplementedException();

@@ -1,4 +1,5 @@
 ﻿using LotusDijital.WebUI.Areas.Admin.Models;
+using LotusDijital.WebUI.Models;
 using System.Text;
 using System.Text.Json;
 
@@ -20,6 +21,38 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
                     return responseContent == "true" ? 200 : 300;
                 }
                 return 400;
+            }
+        }
+
+        public static async Task<ImageGalleryModel> GetImageGallery(int id)
+        {
+            var imageGalleryModel = new ImageGalleryModel();
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(Jobs.ApiUrlString + "/getImageGallery/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    imageGalleryModel = JsonSerializer.Deserialize<ImageGalleryModel>(responseContent);
+                    return imageGalleryModel;
+                }
+                return imageGalleryModel;
+            }
+        }
+
+        public static async Task<List<ImageGalleryModel>> GetImageGalleryList()
+        {
+            var imageGalleryList = new List<ImageGalleryModel>();
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(Jobs.ApiUrlString + "/getImageGalleryList");
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    imageGalleryList = JsonSerializer.Deserialize<List<ImageGalleryModel>>(responseContent);
+                    return imageGalleryList;
+                }
+                return imageGalleryList;
             }
         }
     }

@@ -10,5 +10,7 @@ namespace LotusDijital.Data.Abstract
     public interface IProductRepository : IGenericRepository<Product>
     {
         Task<bool> SaveProductCategoriesAsync(int productId, List<int> categoryIds);
+        Task<List<Product>> GetProductsWithCategories();
+
     }
 }

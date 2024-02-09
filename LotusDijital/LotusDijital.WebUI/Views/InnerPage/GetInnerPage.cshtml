@@ -13,7 +13,8 @@
 <div class="container-fluid py-5 mt-5">
     <div class="container py-5">
         <div class="row g-4 mb-5">
-            <div class="col-lg-8 col-xl-9">
+            @* <div class="col-lg-8 col-xl-9"> *@
+            <div >
                 <div class="row g-4">
                     <div class="col-lg-5">
                         <div class="border rounded">
@@ -27,16 +28,16 @@
                         <p class="mb-3">Category: Vegetables</p>
                         <h5 class="fw-bold mb-3">3,35 $</h5>
                         <p class="mb-4">@Model.ShortContent</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                        <a href="@Model.Url" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" target="_blank"><i class="fa fa-shopping-bag me-2 text-primary"></i> Satın Al</a>
                     </div>
                     @if (Model.ImageGalleries.Count > 0)
                     {
                         <div class="col-lg-4">
                             <div class="swiper-container slider">
                                 <div class="swiper-wrapper">
-                                    @foreach (var imageGalery in Model.ImageGalleries)
+                                    @foreach (var imageGalery in Model.ImageGalleries.Where(ig => ig.IsActive))
                                     {
-                                        foreach (var image in imageGalery.Images)
+                                        foreach (var image in imageGalery.Images.Where(i => i.IsActive))
                                         {
                                             <div class="swiper-slide"><img src="@Jobs.ImageRoute/@image.Url" alt=""></div>
                                         }
@@ -48,9 +49,9 @@
 
                             <div class="swiper-container slider-thumbnail">
                                 <div class="swiper-wrapper">
-                                    @foreach (var imageGalery in Model.ImageGalleries)
+                                    @foreach (var imageGalery in Model.ImageGalleries.Where(ig => ig.IsActive))
                                     {
-                                        foreach (var image in imageGalery.Images)
+                                        foreach (var image in imageGalery.Images.Where(i => i.IsActive))
                                         {
                                             <div class="swiper-slide"><img src="@Jobs.ImageRoute/@image.Url" alt=""></div>
                                         }

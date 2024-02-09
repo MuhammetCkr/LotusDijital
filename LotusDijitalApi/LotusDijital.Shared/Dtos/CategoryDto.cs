@@ -10,5 +10,7 @@ namespace LotusDijital.Shared.Dtos
     {
         public string Image { get; set; }
         public string Details { get; set; }
+        public List<ProductDto> Products { get; set; }
+
     }
 }

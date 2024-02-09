@@ -1,6 +1,7 @@
 ﻿using LotusDijital.Data.Abstract;
 using LotusDijital.Data.Concrete.EfCore.Context;
 using LotusDijital.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,14 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
         LotusDijitalDbContext context
         {
             get { return _dbContext as LotusDijitalDbContext; }
+        }
+
+        public async Task<List<Category>> GetCategoriesWithProducts()
+        {
+            var categoryList = await context.Categories
+                .Include(c => c.ProductCategories).ThenInclude(pc => pc.Product)
+                .ToListAsync();
+            return categoryList;
         }
     }
 }

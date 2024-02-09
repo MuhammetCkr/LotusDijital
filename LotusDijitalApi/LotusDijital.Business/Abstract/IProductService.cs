@@ -1,5 +1,4 @@
-﻿using LotusDijital.Entity;
-using LotusDijital.Shared.Dtos;
+﻿using LotusDijital.Shared.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,7 @@ namespace LotusDijital.Business.Abstract
     {
         Task<bool> CreateAsync(AddProductDto addProductDto);
         Task<bool> UpdateAsync(UpdateProductDto updateProductDto);
+        Task<List<ProductDto>> GetProductsWithCategories();
 
     }
 }

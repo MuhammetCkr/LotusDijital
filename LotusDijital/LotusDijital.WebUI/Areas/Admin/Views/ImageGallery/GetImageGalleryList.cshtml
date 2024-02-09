@@ -1,6 +1,5 @@
-﻿@model List<PageModel>
-
-<a class="btn btn-outline-primary" asp-area="Admin" asp-controller="Page" asp-action="AddPage">Sayfa Ekle</a>
+﻿@model List<ImageGalleryModel>
+<a class="btn btn-outline-primary" asp-area="Admin" asp-controller="ImageGallery" asp-action="AddImageGallery">Resim Galerisi Ekle</a>
 
 <table class="table-fill">
     <thead>
@@ -11,19 +10,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var sayfa in Model)
+        @foreach (var imageGallery in Model)
         {
             <tr>
-                <td>@sayfa.Name</td>
+                <td>@imageGallery.Name</td>
                 <td>
                     <div class="form-check form-switch d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" role="switch" asp-for="@sayfa.IsActive" />
+                        <input class="form-check-input" type="checkbox" role="switch" asp-for="@imageGallery.IsActive" />
                     </div>
                 </td>
                 <td>
-                    <a class="btn btn-outline-primary" asp-area="Admin" asp-controller="Page" asp-action="GetPage" asp-route-id="@sayfa.Id"><i class="fas fa-search"></i></a>
-                    <a class="btn btn-outline-success" asp-area="Admin" asp-controller="Page" asp-action="UpdatePage" asp-route-id="@sayfa.Id"><i class="fas fa-pen" style="padding-right: 6%;"></i></a>
-                    <a class="btn btn-outline-danger" onclick="deletePage('@sayfa.Id')"><i class="fas fa-times"></i></a>
+                    <a class="btn btn-outline-primary" asp-area="Admin" asp-controller="ImageGallery" asp-action="GetImageGallery" asp-route-id="@imageGallery.Id"><i class="fas fa-search"></i></a>
+                    <a class="btn btn-outline-success" asp-area="Admin" asp-controller="ImageGallery" asp-action="UpdateImageGallery" asp-route-id="@imageGallery.Id"><i class="fas fa-pen" style="padding-right: 6%;"></i></a>
+                    <a class="btn btn-outline-danger" onclick="deleteImageGallery('@imageGallery.Id')"><i class="fas fa-times"></i></a>
                 </td>
             </tr>
         }
@@ -33,10 +32,10 @@
 @section Scripts {
     @*Sayfa silme işlemi*@
     <script>
-        function deletePage(id) {
+        function deleteImageGallery(id) {
             Swal.fire({
                 title: 'Silmek istediğinize emin misiniz?',
-                text: "Sayfa kalıcı olarak silinecek!",
+                text: "Galleri kalıcı olarak silinecek!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -46,7 +45,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: 'GET',
-                        url: '/Admin/Page/DeletePage',
+                        url: '/Admin/ImageGallery/DeleteImageGallery',
                         data: { id: id },
                         success: function (res) {
                             console.log(res.status);

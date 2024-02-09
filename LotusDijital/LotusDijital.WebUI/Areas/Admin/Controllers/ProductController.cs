@@ -18,9 +18,11 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> AddProduct()
         {
             var categories = await AreaCategoryDAL.GetCategoriesAsync();
+            var imageGalleries = await AreaImageGalleryDAL.GetImageGalleryList();
             var productModel = new ProductModel()
             {
-                Categories = categories
+                Categories = categories,
+                ImageGalleries = imageGalleries
             };
             return View(productModel);
         }

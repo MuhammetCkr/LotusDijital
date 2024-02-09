@@ -1,4 +1,4 @@
-﻿@model List<PageModel>
+﻿@model NavbarModel
 <div class="container-fluid fixed-top">
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
@@ -23,7 +23,7 @@
                 <div class="navbar-nav mx-auto">
                     <a asp-controller="Home" asp-action="Index" class="nav-item nav-link active">Anasayfa</a>
                     <a asp-controller="Product" asp-action="ProductList" class="nav-item nav-link">Ürünler</a>
-                    @foreach (var pages in Model)
+                    @foreach (var pages in Model.Pages)
                     {
                         @if (pages.InnerPages.Count > 0)
                         {
@@ -39,9 +39,20 @@
                         }
                         else
                         {
-                            <a asp-controller="Page" asp-action="GetPage" asp-route-id="@pages.Id" class="nnav-item nav-link" >@pages.Name</a>
+                            <a asp-controller="Page" asp-action="GetPage" asp-route-id="@pages.Id" class="nnav-item nav-link">@pages.Name</a>
                         }
-
+                    }
+                    @foreach (var category in Model.Categories.Where(c => c.IsActive))
+                    {
+                        <div class="nav-item dropdown">
+                            <a asp-controller="Category" asp-action="GetCategory" asp-route-id="@category.Id" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@category.Name</a>
+                            <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                @foreach (var product in category.Products.Where(p => p.IsActive))
+                                {
+                                    <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="dropdown-item">@product.Name</a>
+                                }
+                            </div>
+                        </div>
                     }
                 </div>
                 <div class="d-flex m-3 me-0">

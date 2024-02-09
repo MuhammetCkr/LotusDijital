@@ -10,5 +10,7 @@ namespace LotusDijital.Business.Abstract
     public interface IImageGalleryService : IService<ImageGalleryDto>
     {
         Task<bool> CreateAsync(AddImageGalleryDto addImageGalleryDto);
+        Task<ImageGalleryDto> GetImageGalleryDto(int id);
+        Task<List<ImageGalleryDto>> GetImageGalleryListDto();
     }
 }

@@ -4,25 +4,22 @@ namespace LotusDijital.WebUI.Models
 {
     public class ProductModel : BaseModel
     {        
-        [JsonPropertyName("ErrorMessage")]
         public string ErrorMessage { get; set; }
-        
-        [JsonPropertyName("Image")]
+        public string Title { get; set; }
+        public string Contents { get; set; } // İçerik
+        public string ShortContent { get; set; } // Kısa içerik
         public string Image { get; set; }
-        
-        [JsonPropertyName("Link")]
+        public string SmallImage { get; set; }
+        public string Banner { get; set; }
+        public bool IsHome { get; set; }
         public string Link { get; set; }
-
-        [JsonPropertyName("Categories")]
         public List<CategoryModel> Categories { get; set; }
-        
-        [JsonPropertyName("ImageGalleries")]
         public List<ImageGalleryModel> ImageGalleries { get; set; }
-        
-        [JsonPropertyName("VideoGalleries")]
         public List<VideoGalleryModel> VideoGalleries { get; set; }
-        
-        [JsonPropertyName("DocumentGalleries")]
         public List<DocumentGalleryModel> DocumentGalleries { get; set; }
+        public List<int> CategoryIds { get; set; }
+        public List<int> ImageGalleryIds { get; set; }
+        public List<int> VideoGalleryIds { get; set; }
+        public List<int> DocumentGalleryIds { get; set; }
     }
 }

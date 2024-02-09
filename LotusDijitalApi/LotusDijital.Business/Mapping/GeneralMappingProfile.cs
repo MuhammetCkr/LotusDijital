@@ -13,7 +13,7 @@ namespace LotusDijital.Business.Mapping
     {
         public GeneralMappingProfile()
         {
-            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Category, CategoryDto>().ForMember(cdto => cdto.Products, opt => opt.MapFrom(p => p.ProductCategories.Select(pc => pc.Product))).ReverseMap();
             CreateMap<Color, ColorDto>().ReverseMap();
             CreateMap<VideoGallery, VideoGalleryDto>().ReverseMap();
             CreateMap<DocumentGallery, DocumentGalleryDto>().ReverseMap();

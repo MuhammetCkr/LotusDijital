@@ -19,6 +19,14 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
             get { return _dbContext as LotusDijitalDbContext; }
         }
 
+        public async Task<List<Product>> GetProductsWithCategories()
+        {
+            var productList = await context.Products
+                .Include(p => p.ProductCategories).ThenInclude(pc => pc.Category)
+                .ToListAsync();
+            return productList;
+        }
+
         public async Task<bool> SaveProductCategoriesAsync(int productId, List<int> categoryIds)
         {
             var productCategories =  categoryIds.Select(catId => new ProductCategories
@@ -32,5 +40,6 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
             return result > 0;
 
         }
+
     }
 }

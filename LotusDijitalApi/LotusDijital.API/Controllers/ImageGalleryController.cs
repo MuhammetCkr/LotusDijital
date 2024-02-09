@@ -24,5 +24,21 @@ namespace LotusDijital.API.Controllers
             var jsonResponse = JsonSerializer.Serialize(response);
             return Ok(jsonResponse);
         }
+
+        [HttpGet("/getImageGallery/{id}")]
+        public async Task<IActionResult> GetImageGallery(int id)
+        {
+            var response = await _imageGalleryService.GetImageGalleryDto(id);
+            var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(jsonResponse);
+        }
+
+        [HttpGet("/getImageGalleryList")]
+        public async Task<IActionResult> GetImageGalleryList()
+        {
+            var response = await _imageGalleryService.GetImageGalleryListDto();
+            var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(jsonResponse);
+        }
     }
 }

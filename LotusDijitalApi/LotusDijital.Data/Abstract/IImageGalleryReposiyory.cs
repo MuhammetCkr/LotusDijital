@@ -9,5 +9,8 @@ namespace LotusDijital.Data.Abstract
 {
     public interface IImageGalleryReposiyory : IGenericRepository<ImageGallery>
     {
+        Task<ImageGallery> GetImageGallery(int id);
+        Task<List<ImageGallery>> GetImageGalleryListDto();
+
     }
 }
