@@ -19,9 +19,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="productTable" class="table table-bordered table-striped">
+                        <table class="table-fill">
                             <thead>
                                 <tr>
+                                    <th>Resim</th>
                                     <th>Ad</th>
                                     <th>Açıklama</th>
                                     <th>İşlemler</th>
@@ -31,10 +32,13 @@
                                 @foreach (var product in Model.OrderBy(x => x.Id))
                                 {
                                     <tr>
+                                        <td width="20%">
+                                            <img width="100%" src="@Jobs.ImageRoute/@product.Image" />
+                                        </td>
                                         <td>@product.Name</td>
-                                        <td></td>
+                                        <td>@product.ShortContent</td>
                                         <td>
-                                            <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.Id">Düzenle</a>
+                                            <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@product.Id">Düzenle</a>
                                             <a class="btn btn-danger btn-sm" onclick="deleteProduct(@product.Id)">Sil</a>
                                         </td>
                                     </tr>

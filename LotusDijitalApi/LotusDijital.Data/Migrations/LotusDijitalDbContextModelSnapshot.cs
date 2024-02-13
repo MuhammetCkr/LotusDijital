@@ -250,7 +250,13 @@ namespace LotusDijital.Data.Migrations
                     b.Property<string>("Banner")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CicekSepetiLink")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Contents")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HepsiBuradaLink")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Image")
@@ -277,6 +283,9 @@ namespace LotusDijital.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("TrendyolLink")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
@@ -291,10 +300,10 @@ namespace LotusDijital.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -538,11 +547,13 @@ namespace LotusDijital.Data.Migrations
                 {
                     b.HasOne("LotusDijital.Entity.InnerPage", "InnerPage")
                         .WithMany("DocumentGalleries")
-                        .HasForeignKey("InnerPageId");
+                        .HasForeignKey("InnerPageId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("LotusDijital.Entity.Product", "Product")
                         .WithMany("DocumentGalleries")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("InnerPage");
 
@@ -562,11 +573,13 @@ namespace LotusDijital.Data.Migrations
                 {
                     b.HasOne("LotusDijital.Entity.InnerPage", "InnerPage")
                         .WithMany("ImageGalleries")
-                        .HasForeignKey("InnerPageId");
+                        .HasForeignKey("InnerPageId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("LotusDijital.Entity.Product", "Product")
                         .WithMany("ImageGalleries")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("InnerPage");
 
@@ -586,11 +599,15 @@ namespace LotusDijital.Data.Migrations
                 {
                     b.HasOne("LotusDijital.Entity.Category", "Category")
                         .WithMany("ProductCategories")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LotusDijital.Entity.Product", "Product")
                         .WithMany("ProductCategories")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
@@ -601,11 +618,13 @@ namespace LotusDijital.Data.Migrations
                 {
                     b.HasOne("LotusDijital.Entity.InnerPage", "InnerPage")
                         .WithMany("VideoGalleries")
-                        .HasForeignKey("InnerPageId");
+                        .HasForeignKey("InnerPageId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("LotusDijital.Entity.Product", "Product")
                         .WithMany("VideoGalleries")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("InnerPage");
 

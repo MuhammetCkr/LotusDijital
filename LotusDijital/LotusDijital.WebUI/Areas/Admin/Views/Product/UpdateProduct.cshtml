@@ -1,0 +1,437 @@
+﻿@model UpdateProductViewModel
+
+<form  asp-area="Admin" asp-controller="Product" asp-action="UpdateProduct" method="post" enctype="multipart/form-data" onsubmit="return control()">
+@* <form  id="formId" method="post" enctype="multipart/form-data"> *@
+    <input type="hidden" value="@Model.Id" asp-for="Id" />
+    <input type="hidden" value="@Model.Image" asp-for="Image" />
+    <input type="hidden" value="@Model.SmallImage" asp-for="SmallImage" />
+    <input type="hidden" value="@Model.Banner" asp-for="Banner" />
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">@Model.Name Ürünün Bilgileri</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Ürün Adı :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Name" class="form-control" onkeyup="urlName()" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Url :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Url" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Ürün Başlık :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Title" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Ürün Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Link" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Trendyol Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="TrendyolLink" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Hepsiburada Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="HepsiBuradaLink" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">ÇiçekSepeti Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="CicekSepetiLink" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">İçerik :</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" asp-for="Contents"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Kısa İçerik :</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" asp-for="ShortContent"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Ürün Kategori :</label>
+                        <div class="col-lg-8">
+                            <select class="selectpicker" multiple aria-label="size 3 select example" asp-for="CategoryIds">
+                                @foreach (var category in Model.Categories)
+                                {
+                                    if (Model.CategoryIds.Any(c => c == category.Id))
+                                    {
+                                        <option value="@category.Id" selected>@category.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Ürün Resim Galeri :</label>
+                        <div class="col-lg-8">
+                            <select class="selectpicker" multiple aria-label="size 3 select example" asp-for="ImageGalleryIds">
+                                @foreach (var imageGallery in Model.ImageGalleries.Where(ig => ig.InnerPageId == null && (ig.ProductId == null || ig.ProductId == Model.Id)))
+                                {
+                                    if (Model.ImageGalleryIds.Any(ig => ig == imageGallery.Id))
+                                    {
+                                        <option value="@imageGallery.Id" selected>@imageGallery.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@imageGallery.Id">@imageGallery.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Resim :</label>
+                        <div class="col-lg-4">
+                            <input type="file" asp-for="Image" class="form-control" onchange="showImage(event)" />
+                        </div>
+                    </div>
+                    @if (!String.IsNullOrWhiteSpace(Model.Image))
+                    {
+
+                        <div id="resimGoster" style="display: block; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenResim" alt="Seçilen Resim" style="max-width: 100%; max-height: 200px;" src="@Jobs.ImageRoute/@Model.Image">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeImage()">Sil</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="resimGoster" style="display: none; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenResim" alt="Seçilen Resim" style="max-width: 100%; max-height: 200px;" src="">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeImage()">Sil</a>
+                        </div>
+                    }
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Küçük Resim</label>
+                        <div class="col-lg-4">
+                            <input type="file" asp-for="SmallImage" class="form-control" onchange="showSmallImage(event)" />
+                        </div>
+                    </div>
+                    @if (!String.IsNullOrWhiteSpace(Model.SmallImage))
+                    {
+                        <div id="kucukResimGoster" style="display: block; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenKucukResim" alt="Seçilen Küçük Resim" style="max-width: 100%; max-height: 200px;" src="@Jobs.ImageRoute/@Model.SmallImage">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeSmallImage()">Sil</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="kucukResimGoster" style="display: none; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenKucukResim" alt="Seçilen Küçük Resim" style="max-width: 100%; max-height: 200px;" src="">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeSmallImage()">Sil</a>
+                        </div>
+                    }
+
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Banner :</label>
+                        <div class="col-lg-4">
+                            <input type="file" asp-for="Banner" class="form-control" onchange="showBanner(event)" />
+                        </div>
+                    </div>
+
+                    @if (!String.IsNullOrWhiteSpace(Model.Banner))
+                    {
+                        <div id="bannerGoster" style="display: block; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenBanner" alt="Seçilen Banner" style="max-width: 100%; max-height: 200px;" src="@Jobs.ImageRoute/@Model.Banner">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeBanner()">Sil</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="bannerGoster" style="display: none; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenBanner" alt="Seçilen Banner" style="max-width: 100%; max-height: 200px;" src="">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeBanner()">Sil</a>
+                        </div>
+                    }
+
+                    <div class="form-group d-flex align-items-center mb-2 row">
+                        <div class="col-lg-4 d-flex align-items-center">
+                            <label class="control-label me-3">Anasayfa da gösterilsin mi? </label>
+                            <div class="col-lg-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" asp-for="IsHome">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 d-flex align-items-center">
+                            <label class="control-label me-3">Aktif mi? </label>
+                            <div class="col-lg-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        @* <a onclick="update()" class="btn btn-success float-right">Güncelle</a> *@
+                        <button type="submit" class="btn btn-success float-right">Güncelle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+@section Scripts {
+
+    @* Tinymce Text Editör *@
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+    </script>
+
+    @* Resim *@
+    <script>
+        function showImage(event) {
+            var input = event.target;
+            var resimGoster = document.getElementById('resimGoster');
+            var gosterilenResim = document.getElementById('gosterilenResim');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    gosterilenResim.setAttribute('src', e.target.result);
+                    resimGoster.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeImage() {
+            var resimGoster = document.getElementById('resimGoster');
+            var image = document.getElementById('Image');
+
+            resimGoster.style.display = "none";
+            image.value = "";
+
+        }
+
+    </script>
+
+    @*Küçük Resim *@
+    <script>
+        function showSmallImage(event) {
+            var input = event.target;
+            var kucukResimGoster = document.getElementById('kucukResimGoster');
+            var gosterilenKucukResim = document.getElementById('gosterilenKucukResim');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    gosterilenKucukResim.setAttribute('src', e.target.result);
+                    kucukResimGoster.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeSmallImage() {
+            var kucukResimGoster = document.getElementById('kucukResimGoster');
+            var smallImage = document.getElementById('SmallImage');
+
+            kucukResimGoster.style.display = "none";
+            smallImage.value = "";
+
+        }
+
+    </script>
+
+    @* Banner *@
+    <script>
+        function showBanner(event) {
+            var input = event.target;
+            var bannerGoster = document.getElementById('bannerGoster');
+            var gosterilenBanner = document.getElementById('gosterilenBanner');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    gosterilenBanner.setAttribute('src', e.target.result);
+                    bannerGoster.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeBanner() {
+            var bannerGoster = document.getElementById('bannerGoster');
+            var banner = document.getElementById('Banner');
+
+            bannerGoster.style.display = "none";
+            banner.value = "";
+
+        }
+
+    </script>
+
+    @* Güncelleme *@
+    <script>
+        function update() {
+            var form = document.getElementById("formId");
+            var formData = new FormData(form);
+
+            var selectedCategories = document.querySelectorAll('select[name="CategoryIds"] option:checked');
+            if (selectedCategories.length === 0) {
+                alert("En az bir kategori seçmelisiniz.");
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Admin/Product/UpdateProduct',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result.status == 200) {
+                            Swal.fire(
+                                'Bilgilendirme',
+                                'Ürün Güncellendi',
+                                'success'
+                            ).then((res) => {
+                                if (res.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                        } else if (result.status == 400) {
+                            Swal.fire(
+                                'Hata',
+                                'Ürün Güncellenemedi',
+                                'error'
+                            );
+                        } else if (result.status == 300) {
+                            Swal.fire(
+                                'Uyarı',
+                                'Aynı isimde Ürün var!',
+                                'warning'
+                            );
+                        }
+                    }
+                });
+
+            }
+        }
+    </script>
+    @* Güncelleme *@
+    <script>
+        function control() {
+
+            var selectedCategories = document.querySelectorAll('select[name="CategoryIds"] option:checked');
+            if (selectedCategories.length === 0) {
+                alert("En az bir kategori seçmelisiniz.");
+                return false;
+            } else {
+                // Simulate a successful POST response with status code 200
+                // Replace this with your actual AJAX call
+                // For demonstration purposes, I'm using setTimeout to simulate an asynchronous operation
+                return true;
+                setTimeout(function () {
+                    // If the POST request is successful, show the success message using SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Başarılı!',
+                        text: 'Form başarıyla gönderildi.',
+                    });
+                }, 1000); // Change the delay time as needed, or replace this with your actual AJAX call
+                return false;
+
+            }
+        }
+    </script>
+
+    @* Url *@
+    <script>
+        function urlName() {
+            var name = document.getElementById("Name").value;
+            var splitName = name.split(" ");
+            var joinName = splitName.join("-");
+            var shortName = joinName.toLocaleLowerCase("tr-TR");
+
+            var donusumTablosu = {
+                "ç": "c",
+                "ğ": "g",
+                "ı": "i",
+                "ö": "o",
+                "ş": "s",
+                "ü": "u",
+                " ": "",// Boşlukları kaldır
+                ",": "",
+                "?": "",
+                ";": "",
+                ":": "",
+                "/": "",
+                "=": "",
+                ".": "",
+                "*": "",
+            };
+
+            shortName = shortName.replace(/[çğıöşü.,/?;:=* ]/g, function (harf) {
+                return donusumTablosu[harf];
+            });
+            document.getElementById("Url").value = shortName;
+        }
+    </script>
+}

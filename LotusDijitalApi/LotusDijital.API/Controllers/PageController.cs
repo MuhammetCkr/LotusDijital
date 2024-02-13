@@ -44,7 +44,7 @@ namespace LotusDijital.API.Controllers
         [HttpDelete("/deletePage/{id}")]
         public async Task<IActionResult> DeletePage(int id)
         {
-            var pageDto = await _pageService.GetByIdAsync(id);
+            var pageDto = await _pageService.GetPageWithInnerPage(id);
             var response = await _pageService.DeleteAsync(pageDto);
             return Ok(response);
         }

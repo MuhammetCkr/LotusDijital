@@ -118,10 +118,12 @@
                 ":": "",
                 "/": "",
                 "=": "",
-                ".": ""
+                ".": "",
+                "*": "",
+
             };
 
-            shortName = shortName.replace(/[çğıöşü ]/g, function (harf) {
+            shortName = shortName.replace(/[çğıöşü.,/?;:=* ]/g, function (harf) {
                 return donusumTablosu[harf];
             });
             document.getElementById("Url").value = shortName;

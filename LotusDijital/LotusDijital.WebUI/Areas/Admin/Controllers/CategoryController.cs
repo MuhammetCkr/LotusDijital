@@ -21,7 +21,9 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCategory(AddCategoryModel addCategoryModel, IFormFile file)
         {
-            addCategoryModel.Image = Jobs.UploadImage(file);
+            if (file != null)
+                addCategoryModel.Image = Jobs.UploadImage(file);
+
             var response = await AreaCategoryDAL.AddCategory(addCategoryModel);
             return Json(new { status = response });
         }

@@ -17,6 +17,10 @@
                             <label for="inputDescription">Sayfa Başlık</label>
                             <input type="text" asp-for="Title" class="form-control">
                         </div>
+                        <div class="form-group">
+                            <label for="inputDescription">Url</label>
+                            <input type="text" asp-for="Url" class="form-control">
+                        </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive">
                             <label class="form-check-label" for="IsActive">Aktif mi?</label>
@@ -69,6 +73,40 @@
                     }
                 }
             });
+        }
+    </script>
+
+    @* Url *@
+    <script>
+        function urlName() {
+            var name = document.getElementById("Name").value;
+            var splitName = name.split(" ");
+            var joinName = splitName.join("-");
+            var shortName = joinName.toLocaleLowerCase("tr-TR");
+
+            var donusumTablosu = {
+                "ç": "c",
+                "ğ": "g",
+                "ı": "i",
+                "ö": "o",
+                "ş": "s",
+                "ü": "u",
+                " ": "",// Boşlukları kaldır
+                ",": "",
+                "?": "",
+                ";": "",
+                ":": "",
+                "/": "",
+                "=": "",
+                ".": "",
+                "*": "",
+
+            };
+
+            shortName = shortName.replace(/[çğıöşü.,/?;:=* ]/g, function (harf) {
+                return donusumTablosu[harf];
+            });
+            document.getElementById("Url").value = shortName;
         }
     </script>
 }

@@ -43,11 +43,9 @@ namespace LotusDijital.Business.Concrete
         public async Task<List<PageDto>> GetAllAsync()
         {
             var pageList = await _pageRepository.GetAllAsync();
-            if (pageList.Count > 0)
-            {
-                return _mapper.Map<List<PageDto>>(pageList);
-            }
-            return new List<PageDto>() { new PageDto() { ErrorMessage = "Kayıtlı sayfa bulunamadı" } };
+
+            return _mapper.Map<List<PageDto>>(pageList);
+
         }
 
         public async Task<PageDto> GetByIdAsync(int id)

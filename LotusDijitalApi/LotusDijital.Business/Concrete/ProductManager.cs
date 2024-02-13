@@ -59,10 +59,6 @@ namespace LotusDijital.Business.Concrete
         public async Task<List<ProductDto>> GetAllAsync()
         {
             var products = await _productRepository.GetAllAsync();
-            if (products.Count == 0)
-            {
-                return new List<ProductDto> { new ProductDto() { ErrorMessage = "Hiç ürün bulunamadı!" } };
-            }
             var productDtos = _mapper.Map<List<ProductDto>>(products);
             return productDtos;
         }
@@ -70,17 +66,21 @@ namespace LotusDijital.Business.Concrete
         public async Task<ProductDto> GetByIdAsync(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
-            if (product != null)
-            {
-                var productDto = _mapper.Map<ProductDto>(product);
-                return productDto;
-            }
-            return new ProductDto { ErrorMessage = "Ürün bulunamadı" };
+            var productDto = _mapper.Map<ProductDto>(product);
+            return productDto;
+
         }
 
         public Task<List<ProductDto>> GetManyAsync(Expression<Func<ProductDto, bool>> expression)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ProductDto> GetProductById(int id)
+        {
+            var product = await _productRepository.GetProductById(id);
+            var productDto = _mapper.Map<ProductDto>(product);
+            return productDto;
         }
 
         public async Task<List<ProductDto>> GetProductsWithCategories()
@@ -92,8 +92,38 @@ namespace LotusDijital.Business.Concrete
 
         public async Task<bool> UpdateAsync(UpdateProductDto updateProductDto)
         {
-            var updateProduct = _mapper.Map<Product>(updateProductDto);
-            var result = await _productRepository.UpdateAsync(updateProduct);
+            var product = await _productRepository.GetProductById(updateProductDto.Id);
+            var productImageGalleries = new List<ImageGallery>();
+            if (updateProductDto.ImageGalleryIds != null && updateProductDto.ImageGalleryIds.Count > 0)
+            {
+                foreach (var galleryId in updateProductDto.ImageGalleryIds)
+                {
+                    var productImageGallery = await _imageGalleryReposiyory.GetImageGallery(galleryId);
+                    productImageGalleries.Add(productImageGallery);
+                }
+            }
+
+            product.ImageGalleries = (updateProductDto.ImageGalleryIds != null && updateProductDto.ImageGalleryIds.Count > 0) ? productImageGalleries : product.ImageGalleries;
+            product.Banner = updateProductDto.Banner;
+            product.Title = updateProductDto.Title;
+            product.Contents = updateProductDto.Contents;
+            product.ShortContent = updateProductDto.ShortContent;
+            product.Id = updateProductDto.Id;
+            product.IsActive = updateProductDto.IsActive;
+            product.Name = updateProductDto.Name;
+            product.IsHome = updateProductDto.IsHome;
+            product.Link = updateProductDto.Link;
+            product.SmallImage = updateProductDto.SmallImage;
+            product.Image = updateProductDto.Image;
+            product.Url = updateProductDto.Url;
+            product.TrendyolLink = updateProductDto.TrendyolLink;
+            product.HepsiBuradaLink = updateProductDto.HepsiBuradaLink;
+            product.CicekSepetiLink = updateProductDto.CicekSepetiLink;
+            product.ProductCategories = updateProductDto
+                .CategoryIds
+                .Select(catId => new ProductCategories { ProductId = product.Id, CategoryId = catId })
+                .ToList();
+            var result = await _productRepository.UpdateAsync(product);
             return result != null;
         }
     }

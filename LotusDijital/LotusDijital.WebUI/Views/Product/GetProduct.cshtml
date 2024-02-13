@@ -1,0 +1,175 @@
+﻿@model ProductViewModel
+@{
+    var category = Model.ProductModel.Categories.FirstOrDefault();
+}
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">@Model.ProductModel.Name</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Category" asp-action="GetCategory" asp-route-id="@category.Id">@category.Name</a></li>
+        <li class="breadcrumb-item active text-white">@Model.ProductModel.Title</li>
+    </ol>
+</div>
+<!-- Single Page Header End -->
+<!-- Single Product Start -->
+<div class="container-fluid py-5 mt-5">
+    <div class="container py-5">
+        <div class="row g-4 mb-5">
+            <div>
+                <div class="row g-4">
+                    <div class="col-lg-5 ">
+                        <div class="border rounded d-flex justify-content-center">
+                            <a href="#" class=" w-75 h-75">
+                                <img src="@Jobs.ImageRoute/@Model.ProductModel.Image" class="img-fluid rounded" alt="Image">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4 class="fw-bold mb-3">@Model.ProductModel.Name</h4>
+                        <p class="mb-3">Kategori: @category.Name</p>
+                        <h5 class="fw-bold mb-3">3,35 $</h5>
+                        <p class="mb-4">@Model.ProductModel.ShortContent</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Satın Al
+                        </button>
+                    </div>
+                    @if (Model.ProductModel.ImageGalleries.Count > 0)
+                    {
+                        <div class="col-lg-4">
+                            <div class="swiper-container slider">
+                                <div class="swiper-wrapper">
+                                    @foreach (var imageGalery in Model.ProductModel.ImageGalleries.Where(ig => ig.IsActive))
+                                    {
+                                        foreach (var image in imageGalery.Images.Where(i => i.IsActive))
+                                        {
+                                            <div class="swiper-slide"><img src="@Jobs.ImageRoute/@image.Url" alt=""></div>
+                                        }
+                                    }
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+
+                            <div class="swiper-container slider-thumbnail">
+                                <div class="swiper-wrapper">
+                                    @foreach (var imageGalery in Model.ProductModel.ImageGalleries.Where(ig => ig.IsActive))
+                                    {
+                                        foreach (var image in imageGalery.Images.Where(i => i.IsActive))
+                                        {
+                                            <div class="swiper-slide"><img src="@Jobs.ImageRoute/@image.Url" alt=""></div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    <div class="col-lg-12">
+                        <nav>
+                            <div class="nav nav-tabs mb-3">
+                                <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
+                                        id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
+                                        aria-controls="nav-about" aria-selected="true">
+                                    Açıklama
+                                </button>
+                            </div>
+                        </nav>
+                        <div class="tab-content mb-5">
+                            <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                                <p>
+                                    @Html.Raw(Model.ProductModel.Contents)
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 class="fw-bold mb-0">Benzer Ürünler</h1>
+        <div class="vesitable">
+            <div class="owl-carousel vegetable-carousel justify-content-center">
+                @{
+                    var productModelCategories = Model.ProductModel.Categories.Select(c => c.Id).ToList();
+                }
+
+                @foreach (var product in Model.ProductList.Where(p => p.IsActive))
+                {
+                    var productCategories = product.Categories.Select(c => c.Id).ToList();
+                    if (productCategories.Any(c => productModelCategories.Contains(c)) && Model.ProductModel.Id != product.Id)
+                    {
+                        <div class="border border-primary rounded position-relative vesitable-item">
+                            <div class="vesitable-img d-flex justify-content-center">
+                                <img src="@Jobs.ImageRoute/@product.SmallImage" class="img-fluid w-75 rounded-top" alt="">
+                            </div>
+                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">@product.Title</div>
+                            <div class="p-4 pb-0 rounded-bottom">
+                                <h4>@product.Name</h4>
+                                <p>@product.ShortContent</p>
+                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                    <p class="text-dark fs-5 fw-bold">$123 / kg</p>
+
+                                    <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary" ><i class="fa fa-shopping-bag me-2 text-primary"></i> İncele</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Satın alınabilecek platformlar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (!String.IsNullOrWhiteSpace(Model.ProductModel.TrendyolLink))
+                {
+                    <a href="@Model.ProductModel.TrendyolLink" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" target="_blank"><i class="fa fa-shopping-bag me-2 text-primary"></i> Trendyol</a>
+                }
+                @if (!String.IsNullOrWhiteSpace(Model.ProductModel.HepsiBuradaLink))
+                {
+                    <a href="@Model.ProductModel.HepsiBuradaLink" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" target="_blank"><i class="fa fa-shopping-bag me-2 text-primary"></i> Hepsiburada</a>
+                }
+                @if (!String.IsNullOrWhiteSpace(Model.ProductModel.CicekSepetiLink))
+                {
+                    <a href="@Model.ProductModel.CicekSepetiLink" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" target="_blank"><i class="fa fa-shopping-bag me-2 text-primary"></i> Çiçek Sepeti</a>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Single Product End -->
+@section Scripts {
+    <script>
+        var sliderThumbnail = new Swiper('.slider-thumbnail', {
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
+        });
+
+        var slider = new Swiper('.slider', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            thumbs: {
+                swiper: sliderThumbnail
+            }
+        });
+    </script>
+}

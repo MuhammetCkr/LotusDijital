@@ -34,6 +34,24 @@
                             </div>
                         </div>
                         <div class="form-group d-flex align-items-center mb-2">
+                            <label class="control-label col-lg-3">Trendyol Link :</label>
+                            <div class="col-lg-8">
+                                <input type="text" asp-for="TrendyolLink" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group d-flex align-items-center mb-2">
+                            <label class="control-label col-lg-3">Hepsiburada Link :</label>
+                            <div class="col-lg-8">
+                                <input type="text" asp-for="HepsiBuradaLink" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group d-flex align-items-center mb-2">
+                            <label class="control-label col-lg-3">ÇiçekSepeti Link :</label>
+                            <div class="col-lg-8">
+                                <input type="text" asp-for="CicekSepetiLink" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group d-flex align-items-center mb-2">
                             <label class="control-label col-lg-3">İçerik :</label>
                             <div class="col-lg-8">
                                 <textarea class="form-control" asp-for="Contents"></textarea>
@@ -139,7 +157,12 @@
 
 
 @section Scripts {
-
+    @* Tinymce Text Editör *@
+    <script>
+        tinymce.init({
+            selector: '.mytextarea'
+        });
+    </script>
     @* Resim *@
     <script>
         function showImage(event) {
@@ -235,35 +258,44 @@
         function add() {
             var form = document.getElementById("form");
             var formData = new FormData(form);
-
-            $.ajax({
-                type: 'POST',
-                url: '/Admin/Product/AddProduct',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    if (result.status == 200) {
-                        Swal.fire(
-                            'Bilgilendirme',
-                            'Ürün Eklendi',
-                            'success'
-                        );
-                    } else if (result.status == 400) {
-                        Swal.fire(
-                            'Hata',
-                            'Ürün Eklenmedi',
-                            'error'
-                        );
-                    } else if (result.status == 300) {
-                        Swal.fire(
-                            'Uyarı',
-                            'Aynı isimde Ürün var!',
-                            'warning'
-                        );
+            var selectedCategories = document.querySelectorAll('select[name="CategoryIds"] option:checked');
+            if (selectedCategories.length === 0) {
+                alert("En az bir kategori seçmelisiniz.");
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Admin/Product/AddProduct',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result.status == 200) {
+                            Swal.fire(
+                                'Bilgilendirme',
+                                'Ürün Eklendi',
+                                'success'
+                            ).then((res) => {
+                                if (res.isConfirmed) {
+                                    window.location.href = '/Admin/Product/ProductList';
+                                }
+                            });
+                        } else if (result.status == 400) {
+                            Swal.fire(
+                                'Hata',
+                                'Ürün Eklenmedi',
+                                'error'
+                            );
+                        } else if (result.status == 300) {
+                            Swal.fire(
+                                'Uyarı',
+                                'Aynı isimde Ürün var!',
+                                'warning'
+                            );
+                        }
                     }
-                }
-            });
+                });
+
+            }
         }
     </script>
 
@@ -289,10 +321,12 @@
                 ":": "",
                 "/": "",
                 "=": "",
-                ".": ""
+                ".": "",
+                "*": "",
+
             };
 
-            shortName = shortName.replace(/[çğıöşü ]/g, function (harf) {
+            shortName = shortName.replace(/[çğıöşü.,/?;:=* ]/g, function (harf) {
                 return donusumTablosu[harf];
             });
             document.getElementById("Url").value = shortName;

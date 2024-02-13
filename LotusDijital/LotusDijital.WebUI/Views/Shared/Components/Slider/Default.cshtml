@@ -1,0 +1,37 @@
+﻿@model List<ProductModel>
+
+<div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        @{
+            int index = 0;
+        }
+
+        @foreach (var product in Model)
+        {
+            if (index == 0)
+            {
+                <div class="carousel-item rounded active">
+                    <img src="@Jobs.ImageRoute/@product.SmallImage" class="img-fluid w-100 h-100 rounded" alt="Slide @(index + 1)">
+                    <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="btn px-4 py-2 text-white rounded">@product.Title</a>
+                </div>
+            }
+            if (index >= 1)
+            {
+                <div class="carousel-item rounded">
+                    <img src="@Jobs.ImageRoute/@product.SmallImage" class="img-fluid w-100 h-100 rounded" alt="Slide @(index + 1)">
+                    <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="btn px-4 py-2 text-white rounded">@product.Title</a>
+                </div>
+            }
+            index++;
+        }
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

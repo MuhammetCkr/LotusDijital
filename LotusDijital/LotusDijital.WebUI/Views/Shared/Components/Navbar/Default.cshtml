@@ -6,16 +6,11 @@
                 <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small>
                 <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
             </div>
-            <div class="top-link pe-2">
-                <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
-            </div>
         </div>
     </div>
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Midilli</h1></a>
+            <a href="/" class="navbar-brand"><h1 class="text-primary display-6">Midilli Harun</h1></a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
             </button>
@@ -28,7 +23,7 @@
                         @if (pages.InnerPages.Count > 0)
                         {
                             <div class="nav-item dropdown">
-                                <a asp-controller="Page" asp-action="GetPage" asp-route-id="@pages.Id" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@pages.Name</a>
+                                <a asp-controller="Page" asp-action="GetPage" asp-route-id="@pages.Id" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">@pages.Name</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                     @foreach (var item in pages.InnerPages)
                                     {
@@ -45,18 +40,20 @@
                     @foreach (var category in Model.Categories.Where(c => c.IsActive))
                     {
                         <div class="nav-item dropdown">
-                            <a asp-controller="Category" asp-action="GetCategory" asp-route-id="@category.Id" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@category.Name</a>
+                            <a asp-controller="Category" asp-action="GetCategory" asp-route-id="@category.Id" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">@category.Name</a>
                             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                @foreach (var product in category.Products.Where(p => p.IsActive))
+                                @foreach (var product in category.Products?.Where(p => p.IsActive))
                                 {
-                                    <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="dropdown-item">@product.Name</a>
+                                    <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="dropdown-item">@product.Title</a>
                                 }
                             </div>
                         </div>
                     }
+
                 </div>
                 <div class="d-flex m-3 me-0">
                     <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+                    
                     <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>

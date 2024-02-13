@@ -2,12 +2,13 @@
 using LotusDijital.WebUI.Models;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace LotusDijital.WebUI.Areas.Admin.Data
 {
     public class AreaProductDAL
     {
-        public static async Task<List<ProductModel>> GetProductAsync()
+        public static async Task<List<ProductModel>> GetProductListAsync()
         {
             var products = new List<ProductModel>();
             using (var httpClient = new HttpClient())
@@ -38,8 +39,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
                     var responseContent = await response.Content.ReadAsStringAsync();
                     return responseContent == "true" ? 200 : 300;
                 }
-                else
-                    return 400;
+                return 400;
             }
         }
 
@@ -49,6 +49,43 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
             {
                 var response = await httpClient.DeleteAsync(Jobs.ApiUrlString + "/deleteProduct/" + id);
                 return response.IsSuccessStatusCode;
+            }
+        }
+
+        public static async Task<ProductModel> GetProductById(int id)
+        {
+            var productModel = new ProductModel();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(Jobs.ApiUrlString + "/productById/" + id);
+                var options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve
+                };
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    productModel = JsonSerializer.Deserialize<ProductModel>(responseContent, options);
+                    return productModel;
+                }
+                return productModel;
+            }
+        }
+
+        public static async Task<int> UpdateProduct(UpdateProductViewModel model)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var serializeProduct = JsonSerializer.Serialize(model);
+                var stringContent = new StringContent(serializeProduct, Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync(Jobs.ApiUrlString + "/updateProduct", stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return responseContent == "true" ? 200 : 300;
+                }
+                return 400;
             }
         }
     }

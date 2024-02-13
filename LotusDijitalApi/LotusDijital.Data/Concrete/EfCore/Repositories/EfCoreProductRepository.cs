@@ -19,6 +19,18 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
             get { return _dbContext as LotusDijitalDbContext; }
         }
 
+        public async Task<Product> GetProductById(int id)
+        {
+            var product = await context.Products
+                .Where(p => p.Id == id)
+                .Include(p => p.ProductCategories).ThenInclude(pc => pc.Category)
+                .Include(p => p.ImageGalleries).ThenInclude(ig => ig.Images)
+                .Include(p => p.VideoGalleries)
+                .Include(p => p.DocumentGalleries)
+                .SingleOrDefaultAsync();
+            return product;
+        }
+
         public async Task<List<Product>> GetProductsWithCategories()
         {
             var productList = await context.Products

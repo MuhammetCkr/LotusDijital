@@ -16,12 +16,13 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <table id="categoryTable" class="table table-bordered table-striped">
+            <div class="col-10">
+                <div class="card ">
+                    <div class="card-body ">
+                        <table class="table-fill">
                             <thead>
                                 <tr>
+                                    <th>Resim</th>
                                     <th>Ad</th>
                                     <th>İşlemler</th>
                                 </tr>
@@ -29,7 +30,10 @@
                             <tbody>
                                 @foreach (var category in Model.OrderBy(x => x.Id))
                                 {
-                                    <tr>
+                                    <tr >
+                                        <td width="20%">
+                                            <img width="100%" src="@Jobs.ImageRoute/@category.Image" />
+                                        </td>
                                         <td>@category.Name</td>
                                         <td>
                                             <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Category" asp-action="EditCategory" asp-route-id="@category.Id">Düzenle</a>

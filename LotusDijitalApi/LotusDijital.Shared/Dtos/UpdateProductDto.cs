@@ -16,6 +16,9 @@ namespace LotusDijital.Shared.Dtos
         public string Banner { get; set; }
         public bool IsHome { get; set; }
         public string Link { get; set; }
+        public string TrendyolLink { get; set; }
+        public string HepsiBuradaLink { get; set; }
+        public string CicekSepetiLink { get; set; }
         public List<int> CategoryIds { get; set; }
         public List<int> ImageGalleryIds { get; set; }
         public List<int> VideoGalleryIds { get; set; }

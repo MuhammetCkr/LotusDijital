@@ -38,6 +38,18 @@ namespace LotusDijital.API.Controllers
             return Ok(jsonResponse);
         }
 
+        [HttpGet("/productById/{id}")]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            };
+            var response = await _productService.GetProductById(id);
+            var jsonResponse = JsonSerializer.Serialize(response,options);
+            return Ok(jsonResponse);
+        }
+
         [HttpPost("/addProduct")]
         public async Task<IActionResult> AddProduct(AddProductDto addProductDto)
         {
@@ -61,6 +73,14 @@ namespace LotusDijital.API.Controllers
             var response = await _productService.DeleteAsync(productDto);
             var jsonResponse = JsonSerializer.Serialize(response);
             return Ok(response);
+        }
+
+        [HttpGet("/getProduct/{id}")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            var response = await _productService.GetByIdAsync(id);
+            var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(jsonResponse);
         }
     }
 }

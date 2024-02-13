@@ -11,6 +11,7 @@ namespace LotusDijital.Data.Abstract
     {
         Task<bool> SaveProductCategoriesAsync(int productId, List<int> categoryIds);
         Task<List<Product>> GetProductsWithCategories();
+        Task<Product> GetProductById(int id);
 
     }
 }

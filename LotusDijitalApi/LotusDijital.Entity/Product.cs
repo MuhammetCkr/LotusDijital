@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LotusDijital.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,9 +24,14 @@ namespace LotusDijital.Entity
         public string Banner { get; set; }
         public bool IsHome { get; set; }
         public string Link { get; set; }
+        public string TrendyolLink { get; set; }
+        public string HepsiBuradaLink { get; set; }
+        public string CicekSepetiLink { get; set; }
         public List<ProductCategories> ProductCategories { get; set; }
         public List<ImageGallery> ImageGalleries { get; set; }
         public List<VideoGallery> VideoGalleries { get; set; }
         public List<DocumentGallery> DocumentGalleries { get; set; }
     }
 }
+
+

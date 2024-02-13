@@ -1,4 +1,5 @@
 ﻿using LotusDijital.WebUI.Data;
+using LotusDijital.WebUI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LotusDijital.WebUI.Controllers
@@ -15,6 +16,19 @@ namespace LotusDijital.WebUI.Controllers
         {
             var productList = await ProductDAL.GetProductsWithCategories();
             return View(productList);
+        }
+
+        [HttpGet("getProduct")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            var product = await ProductDAL.GetProductById(id);
+            var productList = await ProductDAL.GetProductsWithCategories();
+            var productViewModel = new ProductViewModel()
+            {
+                ProductModel = product,
+                ProductList = productList
+            };
+            return View(productViewModel);
         }
     }
 }

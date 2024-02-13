@@ -1,9 +1,11 @@
-﻿using LotusDijital.Entity;
+﻿using LotusDijital.Data.Configurations;
+using LotusDijital.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +24,11 @@ namespace LotusDijital.Data.Concrete.EfCore.Context
         public DbSet<VideoGallery> VideoGalleries { get; set; }
         public DbSet<Image> Images { get; set; }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //Eyyyy EF Core! Git bu uygulamadaki configuration dosyalarını işle!
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

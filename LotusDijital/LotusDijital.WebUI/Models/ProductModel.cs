@@ -13,6 +13,9 @@ namespace LotusDijital.WebUI.Models
         public string Banner { get; set; }
         public bool IsHome { get; set; }
         public string Link { get; set; }
+        public string TrendyolLink { get; set; }
+        public string HepsiBuradaLink { get; set; }
+        public string CicekSepetiLink { get; set; }
         public List<CategoryModel> Categories { get; set; }
         public List<ImageGalleryModel> ImageGalleries { get; set; }
         public List<VideoGalleryModel> VideoGalleries { get; set; }

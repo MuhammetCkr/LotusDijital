@@ -12,6 +12,7 @@ namespace LotusDijital.Business.Abstract
         Task<bool> CreateAsync(AddProductDto addProductDto);
         Task<bool> UpdateAsync(UpdateProductDto updateProductDto);
         Task<List<ProductDto>> GetProductsWithCategories();
+        Task<ProductDto> GetProductById(int id);
 
     }
 }
