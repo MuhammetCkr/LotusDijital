@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LotusDijital.Entity
+﻿namespace LotusDijital.WebUI.Areas.Admin.Models
 {
-    public class Settings : Base
+    public class SettingsModel
     {
-        public string Favicon { get; set; }
+        public int Id { get; set; }
         public string Logo { get; set; }
+        public string Favicon { get; set; }
         public string Adress { get; set; }
         public string Email { get; set; }
         public string Title { get; set; }
@@ -22,6 +17,5 @@ namespace LotusDijital.Entity
         public string Ciceksepeti { get; set; }
         public string FooterContent { get; set; }
         public string Phone { get; set; }
-
     }
 }

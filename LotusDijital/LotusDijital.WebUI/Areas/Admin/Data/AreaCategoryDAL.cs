@@ -83,11 +83,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
                     return responseContent == "true" ? 200 : 300;
 
                 }
-                else
-                {
-
-                    return 400;
-                }
+                return 400;
             }
         }
 

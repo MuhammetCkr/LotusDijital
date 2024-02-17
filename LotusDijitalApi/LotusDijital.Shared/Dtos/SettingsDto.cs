@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusDijital.Entity
+namespace LotusDijital.Shared.Dtos
 {
-    public class Settings : Base
+    public class SettingsDto : BaseDto
     {
         public string Favicon { get; set; }
         public string Logo { get; set; }
@@ -22,6 +22,5 @@ namespace LotusDijital.Entity
         public string Ciceksepeti { get; set; }
         public string FooterContent { get; set; }
         public string Phone { get; set; }
-
     }
 }

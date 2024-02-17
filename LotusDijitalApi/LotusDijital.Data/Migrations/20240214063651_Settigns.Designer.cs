@@ -3,6 +3,7 @@ using System;
 using LotusDijital.Data.Concrete.EfCore.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LotusDijital.Data.Migrations
 {
     [DbContext(typeof(LotusDijitalDbContext))]
-    partial class LotusDijitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240214063651_Settigns")]
+    partial class Settigns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -331,9 +334,6 @@ namespace LotusDijital.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Facebook")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Favicon")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FooterContent")

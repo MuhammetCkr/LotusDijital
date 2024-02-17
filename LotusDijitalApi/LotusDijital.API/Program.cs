@@ -21,6 +21,7 @@ builder.Services.AddScoped<IInnerPageService, InnerPageManager>();
 builder.Services.AddScoped<IPageService, PageManager>();
 builder.Services.AddScoped<IVideoGalleryService, VideoGalleryManager>();
 builder.Services.AddScoped<IImageService, ImageManager>();
+builder.Services.AddScoped<ISettingsService, SettingsManager>();
 
 builder.Services.AddScoped<ICategoryRepository, EfCoreCategoryRepository>();
 builder.Services.AddScoped<IProductRepository, EfCoreProductRepository>();
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IInnerPageRepository, EfCoreInnerPageRepository>();
 builder.Services.AddScoped<IPageRepository, EfCorePageRepository>();
 builder.Services.AddScoped<IVideoGalleryRepository, EfCoreVideoGalleryRepository>();
 builder.Services.AddScoped<IImageRespository, EfCoreImageRespository>();
+builder.Services.AddScoped<ISettingsRepository, EfCoreSettingsRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

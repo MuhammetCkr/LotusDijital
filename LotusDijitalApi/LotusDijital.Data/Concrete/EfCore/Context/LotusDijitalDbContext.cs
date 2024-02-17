@@ -23,6 +23,7 @@ namespace LotusDijital.Data.Concrete.EfCore.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<VideoGallery> VideoGalleries { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Settings> Settings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

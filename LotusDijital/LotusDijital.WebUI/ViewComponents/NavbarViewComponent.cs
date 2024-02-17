@@ -11,6 +11,7 @@ namespace LotusDijital.WebUI.ViewComponents
         {
             var pageList = await PageDAL.PageList();
             var categoryList = await CategoryDAL.GetCategoriesWithProducts();
+            var settings = await SettingsDAL.GetSettings(1);
             var navbarModel = new NavbarModel()
             {
                 Categories = categoryList,

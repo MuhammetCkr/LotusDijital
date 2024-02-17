@@ -46,7 +46,7 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> EditCategory(EditCategoryModel editCategoryModel, IFormFile image)
         {
-            editCategoryModel.Image = image == null ? "" : image.FileName;
+            editCategoryModel.Image = image == null ? "" : Jobs.UploadImage(image);
             var response = await AreaCategoryDAL.EditCategory(editCategoryModel);
             return Json(new { status = response });
         }

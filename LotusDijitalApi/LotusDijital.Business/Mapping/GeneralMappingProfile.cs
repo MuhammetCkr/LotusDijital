@@ -18,6 +18,7 @@ namespace LotusDijital.Business.Mapping
             CreateMap<VideoGallery, VideoGalleryDto>().ReverseMap();
             CreateMap<DocumentGallery, DocumentGalleryDto>().ReverseMap();
             CreateMap<Image, ImageDto>().ReverseMap();
+            CreateMap<Settings, SettingsDto>().ReverseMap();
 
             CreateMap<ImageGallery, ImageGalleryDto>().ForMember(imgDto => imgDto.Images, opt => opt.MapFrom(src => src.Images)).ReverseMap();
 

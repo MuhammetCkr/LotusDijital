@@ -1,0 +1,260 @@
+﻿@model SettingsModel
+
+
+<form id="formId" asp-area="Admin" asp-controller="Product" asp-action="UpdateProduct" method="post" enctype="multipart/form-data" onsubmit="return control()">
+    @* <form  id="formId" method="post" enctype="multipart/form-data"> *@
+    <input type="hidden" value="@Model.Id" asp-for="Id" />
+    <input type="hidden" value="@Model.Logo" asp-for="Logo" />
+    <input type="hidden" value="@Model.Favicon" asp-for="Favicon" />
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Ayarlar</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Başlık :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Title" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Adres :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Adress" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Mail :</label>
+                        <div class="col-lg-8">
+                            <input type="email" asp-for="Email" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Twitter Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Twitter" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Facebook Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Facebook" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Youtube Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Youtube" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Instagram Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Instagram" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Trendyol Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Trendyol" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Hepsiburada Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Hepsiburada" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Çiceksepeti Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Ciceksepeti" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Footer İçerik :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="FooterContent" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Telefon :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Phone" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Logo :</label>
+                        <div class="col-lg-4">
+                            <input type="file" asp-for="Logo" class="form-control" onchange="showImage(event)" />
+                        </div>
+                    </div>
+                    @if (!String.IsNullOrWhiteSpace(Model.Logo))
+                    {
+
+                        <div id="resimGoster" style="display: block; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenResim" alt="Seçilen Resim" style="max-width: 100%; max-height: 200px;" src="@Jobs.ImageRoute/@Model.Logo">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeImage()">Sil</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="resimGoster" style="display: none; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenResim" alt="Seçilen Resim" style="max-width: 100%; max-height: 200px;" src="">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeImage()">Sil</a>
+                        </div>
+                    }
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-2">Favicon</label>
+                        <div class="col-lg-4">
+                            <input type="file" asp-for="Favicon" class="form-control" onchange="showSmallImage(event)" />
+                        </div>
+                    </div>
+                    @if (!String.IsNullOrWhiteSpace(Model.Favicon))
+                    {
+                        <div id="kucukResimGoster" style="display: block; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenKucukResim" alt="Seçilen Küçük Resim" style="max-width: 100%; max-height: 200px;" src="@Jobs.ImageRoute/@Model.Favicon">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeSmallImage()">Sil</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="kucukResimGoster" style="display: none; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <img id="gosterilenKucukResim" alt="Seçilen Küçük Resim" style="max-width: 100%; max-height: 200px;" src="">
+                                </div>
+                            </div>
+                            <a class="btn btn-danger mt-2" onclick="removeSmallImage()">Sil</a>
+                        </div>
+                    }
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <a onclick="update()" class="btn btn-success float-right">Güncelle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+@section Scripts {
+
+    @* Resim *@
+    <script>
+        function showImage(event) {
+            var input = event.target;
+            var resimGoster = document.getElementById('resimGoster');
+            var gosterilenResim = document.getElementById('gosterilenResim');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    gosterilenResim.setAttribute('src', e.target.result);
+                    resimGoster.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeImage() {
+            var resimGoster = document.getElementById('resimGoster');
+            var image = document.getElementById('Image');
+
+            resimGoster.style.display = "none";
+            image.value = "";
+
+        }
+
+    </script>
+
+    @*Küçük Resim *@
+    <script>
+        function showSmallImage(event) {
+            var input = event.target;
+            var kucukResimGoster = document.getElementById('kucukResimGoster');
+            var gosterilenKucukResim = document.getElementById('gosterilenKucukResim');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    gosterilenKucukResim.setAttribute('src', e.target.result);
+                    kucukResimGoster.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeSmallImage() {
+            var kucukResimGoster = document.getElementById('kucukResimGoster');
+            var smallImage = document.getElementById('SmallImage');
+
+            kucukResimGoster.style.display = "none";
+            smallImage.value = "";
+
+        }
+
+    </script>
+    @* Güncelleme *@
+    <script>
+        function update() {
+            var form = document.getElementById("formId");
+            var formData = new FormData(form);
+
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Settings/UpdateSettings',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    if (result.status == 200) {
+                        Swal.fire(
+                            'Bilgilendirme',
+                            'Ürün Güncellendi',
+                            'success'
+                        ).then((res) => {
+                            if (res.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    } else if (result.status == 400) {
+                        Swal.fire(
+                            'Hata',
+                            'Ürün Güncellenemedi',
+                            'error'
+                        );
+                    } else if (result.status == 300) {
+                        Swal.fire(
+                            'Uyarı',
+                            'Aynı isimde Ürün var!',
+                            'warning'
+                        );
+                    }
+                }
+            });
+
+        }
+    </script>
+
+}
