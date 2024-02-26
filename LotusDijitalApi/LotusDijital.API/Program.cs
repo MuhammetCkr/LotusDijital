@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 //builder.Services.AddDbContext<LotusDijitalDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
 builder.Services.AddDbContext<LotusDijitalDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MsSqlServerConnection")));
+//builder.Services.AddDbContext<LotusDijitalDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MsSqlServerConnectionLocale")));
 
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
 builder.Services.AddScoped<IProductService, ProductManager>();

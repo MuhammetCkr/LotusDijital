@@ -15,6 +15,10 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> GetSettings(int id)
         {
             var settings = await AreaSettingsDAL.GetSettings(id);
+            if (settings == null)
+            {
+                return View(new SettingsModel());
+            }
             return View(settings);
         }
 

@@ -55,5 +55,31 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
                 return imageGalleryList;
             }
         }
+
+        public static async Task<bool> Delete(int id)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync(Jobs.ApiUrlString + "/delete/" + id);
+                return response.IsSuccessStatusCode;
+            }
+        }
+
+        public static async Task<int> Update(ImageGalleryModel imageGalleryModel)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var serializeGallery = JsonSerializer.Serialize(imageGalleryModel);
+                var stringContent = new StringContent(serializeGallery, Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync(Jobs.ApiUrlString + "/update", stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return responseContent == "true" ? 200 : 300;
+
+                }
+                return 400;
+            }
+        }
     }
 }

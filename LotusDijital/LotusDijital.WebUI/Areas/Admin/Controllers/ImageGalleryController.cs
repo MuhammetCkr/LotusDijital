@@ -46,5 +46,27 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
             var imageGalleryList = await AreaImageGalleryDAL.GetImageGalleryList();
             return View(imageGalleryList);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await AreaImageGalleryDAL.Delete(id);
+            var status = result ? 200 : 400;
+            return Json(new { status = status });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var imageGalleryModel = await AreaImageGalleryDAL.GetImageGallery(id);
+            return View(imageGalleryModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ImageGalleryModel imageGalleryModel)
+        {
+            var response = await AreaImageGalleryDAL.Update(imageGalleryModel);
+            return Json(new { status = response });
+        }
     }
 }

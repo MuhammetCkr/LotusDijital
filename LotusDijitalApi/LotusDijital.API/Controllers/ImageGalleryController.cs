@@ -40,5 +40,23 @@ namespace LotusDijital.API.Controllers
             var jsonResponse = JsonSerializer.Serialize(response);
             return Ok(jsonResponse);
         }
+
+        [HttpDelete("/delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var galleryDto = await _imageGalleryService.GetByIdAsync(id);
+            var response = await _imageGalleryService.DeleteAsync(galleryDto);
+            var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(jsonResponse);
+        }
+
+        //[HttpPost("/update")]
+        //public async Task<IActionResult> Update(ImageGalleryDto imageGalleryDto)
+        //{
+        //    var response = await _imageGalleryService.Upda
+        //    return Ok(jsonResponse);
+        //}
+
+
     }
 }

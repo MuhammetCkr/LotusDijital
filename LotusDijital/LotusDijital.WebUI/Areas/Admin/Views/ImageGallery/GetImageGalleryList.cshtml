@@ -21,7 +21,7 @@
                 </td>
                 <td>
                     <a class="btn btn-outline-primary" asp-area="Admin" asp-controller="ImageGallery" asp-action="GetImageGallery" asp-route-id="@imageGallery.Id"><i class="fas fa-search"></i></a>
-                    <a class="btn btn-outline-success" asp-area="Admin" asp-controller="ImageGallery" asp-action="UpdateImageGallery" asp-route-id="@imageGallery.Id"><i class="fas fa-pen" style="padding-right: 6%;"></i></a>
+                    <a class="btn btn-outline-success" asp-area="Admin" asp-controller="ImageGallery" asp-action="Update" asp-route-id="@imageGallery.Id"><i class="fas fa-pen" style="padding-right: 6%;"></i></a>
                     <a class="btn btn-outline-danger" onclick="deleteImageGallery('@imageGallery.Id')"><i class="fas fa-times"></i></a>
                 </td>
             </tr>
@@ -30,7 +30,7 @@
 </table>
 
 @section Scripts {
-    @*Sayfa silme işlemi*@
+    @*Galleri silme işlemi*@
     <script>
         function deleteImageGallery(id) {
             Swal.fire({
@@ -45,7 +45,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: 'GET',
-                        url: '/Admin/ImageGallery/DeleteImageGallery',
+                        url: '/Admin/ImageGallery/Delete',
                         data: { id: id },
                         success: function (res) {
                             console.log(res.status);

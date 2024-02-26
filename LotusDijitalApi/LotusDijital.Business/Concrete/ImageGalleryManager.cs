@@ -39,9 +39,11 @@ namespace LotusDijital.Business.Concrete
             return result != null;
         }
 
-        public Task<bool> DeleteAsync(ImageGalleryDto tDto)
+        public async Task<bool> DeleteAsync(ImageGalleryDto tDto)
         {
-            throw new NotImplementedException();
+            var imageGallery = _mapper.Map<ImageGallery>(tDto);
+            var result = await _imageGalleryReposiyory.DeleteAsync(imageGallery);
+            return result;
         }
 
         public Task<List<ImageGalleryDto>> GetAllAsync()
@@ -49,9 +51,11 @@ namespace LotusDijital.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<ImageGalleryDto> GetByIdAsync(int id)
+        public async Task<ImageGalleryDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var gallery = await _imageGalleryReposiyory.GetByIdAsync(id);
+            var galleryDto = _mapper.Map<ImageGalleryDto>(gallery);
+            return galleryDto;
         }
 
         public async Task<ImageGalleryDto> GetImageGalleryDto(int id)
