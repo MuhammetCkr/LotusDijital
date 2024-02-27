@@ -16,6 +16,7 @@ namespace LotusDijital.WebUI.ViewComponents
             {
                 Categories = categoryList,
                 Pages = pageList,
+                Settings = settings
             };
             return View(navbarModel);
         }

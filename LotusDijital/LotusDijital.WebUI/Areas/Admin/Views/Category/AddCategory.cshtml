@@ -1,5 +1,6 @@
 ﻿@model AddCategoryModel
 <section class="content">
+    @* <form id="form" asp-area="Admin" asp-controller="Category" asp-action="AddCategory" method="post" enctype="multipart/form-data"> *@
     <form id="form" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -31,7 +32,8 @@
         </div>
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <input onclick="add()" value="Kaydet" class="btn btn-success float-right">
+                <input onclick="add()" value="Kaydet" class="btn btn-success float-right" readonly>
+                @* <input type="submit" value="Kaydet" class="btn btn-success float-right"> *@
             </div>
         </div>
     </form>
@@ -44,7 +46,6 @@
         function add() {
             var form = document.getElementById("form");
             var formData = new FormData(form);
-
             $.ajax({
                 type: 'POST',
                 url: '/Admin/Category/AddCategory',
@@ -57,7 +58,11 @@
                             'Bilgilendirme',
                             'Kategori Eklendi',
                             'success'
-                        );
+                        ).then((res) => {
+                            if (res.isConfirmed) {
+                                window.location.href = '/Admin/Category/Index';
+                            }
+                        });
                     } else if (result.status == 400) {
                         Swal.fire(
                             'Hata',

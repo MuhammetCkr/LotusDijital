@@ -1,7 +1,8 @@
-﻿@model AddImageGalleryModel
+﻿@model ImageGalleryModel
 
 <section class="content">
     <form id="form" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id"/>
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card card-primary">
@@ -17,10 +18,6 @@
                             <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive">
                             <label class="form-check-label" for="IsActive">Aktif mi?</label>
                         </div>
-                        <div class="form-group">
-                            <label for="Image"> Galeri Resimleri</label>
-                            <input type="file" class="form-control-file" name="images" multiple accept="image/*" />
-                        </div>
                     </div>
                 </div>
             </div>
@@ -28,7 +25,7 @@
         </div>
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <input onclick="add()" value="Kaydet" class="btn btn-success float-right">
+                <input onclick="update()" value="Kaydet" class="btn btn-success float-right">
             </div>
         </div>
     </form>
@@ -36,15 +33,15 @@
 
 
 @section Scripts {
-    @* Ekleme *@
+    @* Güncelle *@
     <script>
-        function add() {
+        function update() {
             var form = document.getElementById("form");
             var formData = new FormData(form);
 
             $.ajax({
                 type: 'POST',
-                url: '/Admin/ImageGallery/AddImageGallery',
+                url: '/Admin/ImageGallery/Update',
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -54,12 +51,7 @@
                             'Bilgilendirme',
                             'Resim Galerisi Eklendi',
                             'success'
-                        ).then((res) => {
-                            if (res.isConfirmed) {
-                                window.location.href = '/Admin/ImageGallery/GetImageGalleryList';
-
-                            }
-                        });
+                        );
                     } else if (result.status == 400) {
                         Swal.fire(
                             'Hata',
@@ -78,4 +70,3 @@
         }
     </script>
 }
-

@@ -231,7 +231,7 @@
                     if (result.status == 200) {
                         Swal.fire(
                             'Bilgilendirme',
-                            'Ürün Güncellendi',
+                            'Ayarlar Güncellendi',
                             'success'
                         ).then((res) => {
                             if (res.isConfirmed) {
@@ -241,14 +241,8 @@
                     } else if (result.status == 400) {
                         Swal.fire(
                             'Hata',
-                            'Ürün Güncellenemedi',
+                            'Ayarlar Güncellenemedi',
                             'error'
-                        );
-                    } else if (result.status == 300) {
-                        Swal.fire(
-                            'Uyarı',
-                            'Aynı isimde Ürün var!',
-                            'warning'
                         );
                     }
                 }
