@@ -81,5 +81,14 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
                 return 400;
             }
         }
+
+        public static async Task<int> IsActive(int id)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(Jobs.ApiUrlString + "/getIsActive/" + id);
+                return response.IsSuccessStatusCode ? 200 : 400;
+            }
+        }
     }
 }

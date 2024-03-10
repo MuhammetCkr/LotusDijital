@@ -50,6 +50,17 @@ namespace LotusDijital.API.Controllers
             return Ok(jsonResponse);
         }
 
+        [HttpGet("/getIsActive/{id}")]
+        public async Task<IActionResult> GetIsActive(int id)
+        {
+            var galleryDto = await _imageGalleryService.GetByIdAsync(id);
+            galleryDto.IsActive = !galleryDto.IsActive;
+            var response = await _imageGalleryService.UpdateAsync(galleryDto);
+            var jsonResponse = JsonSerializer.Serialize(response);
+            return Ok(jsonResponse);
+
+        }
+
         //[HttpPost("/update")]
         //public async Task<IActionResult> Update(ImageGalleryDto imageGalleryDto)
         //{

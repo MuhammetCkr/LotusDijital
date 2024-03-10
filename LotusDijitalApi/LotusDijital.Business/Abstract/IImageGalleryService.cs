@@ -12,5 +12,6 @@ namespace LotusDijital.Business.Abstract
         Task<bool> CreateAsync(AddImageGalleryDto addImageGalleryDto);
         Task<ImageGalleryDto> GetImageGalleryDto(int id);
         Task<List<ImageGalleryDto>> GetImageGalleryListDto();
+        Task<bool> UpdateAsync(ImageGalleryDto imageGalleryDto);
     }
 }

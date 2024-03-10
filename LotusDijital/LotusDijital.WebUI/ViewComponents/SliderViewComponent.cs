@@ -7,8 +7,8 @@ namespace LotusDijital.WebUI.ViewComponents
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var productList = await ProductDAL.GetProductList();
-            var isHome = productList.Where(p => p.IsActive && p.IsHome).ToList();
+            var categoryList = await CategoryDAL.GetCategoriesWithProducts();
+            var isHome = categoryList.Where(c => c.IsActive ).ToList();
             return View(isHome);
         }
     }

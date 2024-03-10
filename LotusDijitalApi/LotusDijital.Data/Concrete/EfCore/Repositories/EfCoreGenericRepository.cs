@@ -80,11 +80,20 @@ namespace LotusDijital.Data.Concrete.EfCore.Repositories
         async Task<TEntity> IGenericRepository<TEntity>.UpdateAsync(TEntity entity)
         {
             var isThere = _dbContext.Set<TEntity>().Any(x => x.Name == entity.Name && x.Id != entity.Id);
+                            
             if (!isThere)
             {
-                _dbContext.Set<TEntity>().Update(entity);
-                var result = await _dbContext.SaveChangesAsync();
-                return result > 0 ? entity : null;
+                try
+                {
+                    _dbContext.Set<TEntity>().Update(entity);
+                    var result = await _dbContext.SaveChangesAsync();
+                    return result > 0 ? entity : null;
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
             }
             return null;
         }

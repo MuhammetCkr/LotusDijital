@@ -68,5 +68,12 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
             var response = await AreaImageGalleryDAL.Update(imageGalleryModel);
             return Json(new { status = response });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> IsActive(int id)
+        {
+            var result = await AreaImageGalleryDAL.IsActive(id);
+            return View(result);
+        }
     }
 }

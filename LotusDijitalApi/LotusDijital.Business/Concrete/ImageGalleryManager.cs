@@ -76,5 +76,12 @@ namespace LotusDijital.Business.Concrete
         {
             throw new NotImplementedException();
         }
+
+        public async Task<bool> UpdateAsync(ImageGalleryDto imageGalleryDto)
+        {
+            var gallery = _mapper.Map<ImageGallery>(imageGalleryDto);
+            var result = await _imageGalleryReposiyory.UpdateAsync(gallery);
+            return result != null;
+        }
     }
 }

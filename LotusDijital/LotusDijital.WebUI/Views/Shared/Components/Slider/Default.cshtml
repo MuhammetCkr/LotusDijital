@@ -1,37 +1,42 @@
-﻿@model List<ProductModel>
-
-<div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
-    <div class="carousel-inner" role="listbox">
-        @{
-            int index = 0;
-        }
-
-        @foreach (var product in Model)
-        {
-            if (index == 0)
-            {
-                <div class="carousel-item rounded active">
-                    <img src="@Jobs.ImageRoute/@product.SmallImage" class="img-fluid w-100 h-100 rounded" alt="Slide @(index + 1)">
-                    <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="btn px-4 py-2 text-white rounded">@product.Title</a>
-                </div>
-            }
-            if (index >= 1)
-            {
-                <div class="carousel-item rounded">
-                    <img src="@Jobs.ImageRoute/@product.SmallImage" class="img-fluid w-100 h-100 rounded" alt="Slide @(index + 1)">
-                    <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="btn px-4 py-2 text-white rounded">@product.Title</a>
-                </div>
-            }
-            index++;
-        }
-
+﻿@model List<CategoryModel>
+@{
+    int index = 0;
+    int counter = 0;
+}
+@foreach (var category in Model)
+{
+    <div class="col-md-3 col-lg-3 ">
+        <div id="carouselId-@index" class="carousel slide position-relative" data-bs-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                @foreach (var product in category.Products)
+                {
+                    if (counter == 0)
+                    {
+                        <div class="carousel-item rounded text-center active">
+                            <img src="@Jobs.ImageRoute/@product.SmallImage" class="img-fluid w-75 h-100 rounded" alt="Slide @(index + 1)">
+                            <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="btn px-4 py-2 text-white rounded">@product.Title</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="carousel-item rounded text-center">
+                            <img src="@Jobs.ImageRoute/@product.SmallImage" class="img-fluid w-75 h-100 rounded" alt="Slide @(index + 1)">
+                            <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="btn px-4 py-2 text-white rounded">@product.Title</a>
+                        </div>
+                    }
+                    counter++;
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId-@index" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselId-@index" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+    index++;
+    counter = 0;
+}

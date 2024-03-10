@@ -1,168 +1,160 @@
 ﻿@model ProductModel
 
-<section class="content">
-    <form id="form" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Ürün Bilgileri</h3>
+<form id="form" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Ürün Bilgileri</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Ürün Adı :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Name" class="form-control" onkeyup="urlName()" />
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Ürün Adı :</label>
-                            <div class="col-lg-8">
-                                <input type="text" asp-for="Name" class="form-control" onkeyup="urlName()" />
-                            </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Url :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Url" class="form-control" />
                         </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Url :</label>
-                            <div class="col-lg-8">
-                                <input type="text" asp-for="Url" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Ürün Başlık :</label>
-                            <div class="col-lg-8">
-                                <input type="text" asp-for="Title" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Ürün Link :</label>
-                            <div class="col-lg-8">
-                                <input type="text" asp-for="Link" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Trendyol Link :</label>
-                            <div class="col-lg-8">
-                                <input type="text" asp-for="TrendyolLink" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Hepsiburada Link :</label>
-                            <div class="col-lg-8">
-                                <input type="text" asp-for="HepsiBuradaLink" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">ÇiçekSepeti Link :</label>
-                            <div class="col-lg-8">
-                                <input type="text" asp-for="CicekSepetiLink" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">İçerik :</label>
-                            <div class="col-lg-8">
-                                <textarea class="form-control" asp-for="Contents"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Kısa İçerik :</label>
-                            <div class="col-lg-8">
-                                <textarea class="form-control" asp-for="ShortContent"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputDescription">Ürün Kategori</label>
-                            <select class="selectpicker" multiple aria-label="size 3 select example" asp-for="CategoryIds">
-                                @foreach (var category in Model.Categories)
-                                {
-                                    <option value="@category.Id">@category.Name</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputDescription">Ürün Resim Galeri</label>
-                            <select class="selectpicker" multiple aria-label="size 3 select example" asp-for="ImageGalleryIds">
-                                @foreach (var imageGallery in Model.ImageGalleries.Where(ig => ig.ProductId == null && ig.InnerPageId == null))
-                                {
-                                    <option value="@imageGallery.Id">@imageGallery.Name</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Resim :</label>
-                            <div class="col-lg-8">
-                                <input type="file" asp-for="Image" class="form-control" onchange="showImage(event)" />
-                            </div>
-                        </div>
-
-                        <div id="resimGoster" style="display: none; margin-top: 10px;">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <img id="gosterilenResim" alt="Seçilen Resim" style="max-width: 100%; max-height: 200px;" src="">
-                                </div>
-                            </div>
-                            <a class="btn btn-danger mt-2" onclick="removeImage()">Sil</a>
-                        </div>
-
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Küçük Resim :</label>
-                            <div class="col-lg-8">
-                                <input type="file" asp-for="SmallImage" class="form-control" onchange="showSmallImage(event)" />
-                            </div>
-                        </div>
-
-                        <div id="kucukResimGoster" style="display: none; margin-top: 10px;">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <img id="gosterilenKucukResim" alt="Seçilen Küçük Resim" style="max-width: 100%; max-height: 200px;" src="">
-                                </div>
-                            </div>
-                            <a class="btn btn-danger mt-2" onclick="removeSmallImage()">Sil</a>
-                        </div>
-
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Banner :</label>
-                            <div class="col-lg-8">
-                                <input type="file" asp-for="Banner" class="form-control" onchange="showBanner(event)" />
-                            </div>
-                        </div>
-
-                        <div id="bannerGoster" style="display: none; margin-top: 10px;">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <img id="gosterilenBanner" alt="Seçilen Banner" style="max-width: 100%; max-height: 200px;" src="">
-                                </div>
-                            </div>
-                            <a class="btn btn-danger mt-2" onclick="removeBanner()">Sil</a>
-                        </div>
-
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Anasayfa da gösterilsin mi? </label>
-                            <div class="col-lg-8 form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" asp-for="IsHome">
-                            </div>
-                        </div>
-                        <div class="form-group d-flex align-items-center mb-2">
-                            <label class="control-label col-lg-3">Aktif mi? </label>
-                            <div class="col-lg-8 form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive">
-                            </div>
-                        </div>
-
                     </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Ürün Başlık :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Title" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Ürün Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="Link" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Trendyol Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="TrendyolLink" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Hepsiburada Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="HepsiBuradaLink" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">ÇiçekSepeti Link :</label>
+                        <div class="col-lg-8">
+                            <input type="text" asp-for="CicekSepetiLink" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">İçerik :</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" asp-for="Contents"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Kısa İçerik :</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" asp-for="ShortContent"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescription">Ürün Kategori</label>
+                        <select class="selectpicker" multiple aria-label="size 3 select example" asp-for="CategoryIds">
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescription">Ürün Resim Galeri</label>
+                        <select class="selectpicker" multiple aria-label="size 3 select example" asp-for="ImageGalleryIds">
+                            @foreach (var imageGallery in Model.ImageGalleries.Where(ig => ig.ProductId == null && ig.InnerPageId == null))
+                            {
+                                <option value="@imageGallery.Id">@imageGallery.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Resim :</label>
+                        <div class="col-lg-8">
+                            <input type="file" asp-for="Image" class="form-control" onchange="showImage(event)" />
+                        </div>
+                    </div>
+
+                    <div id="resimGoster" style="display: none; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img id="gosterilenResim" alt="Seçilen Resim" style="max-width: 100%; max-height: 200px;" src="">
+                            </div>
+                        </div>
+                        <a class="btn btn-danger mt-2" onclick="removeImage()">Sil</a>
+                    </div>
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Küçük Resim :</label>
+                        <div class="col-lg-8">
+                            <input type="file" asp-for="SmallImage" class="form-control" onchange="showSmallImage(event)" />
+                        </div>
+                    </div>
+
+                    <div id="kucukResimGoster" style="display: none; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img id="gosterilenKucukResim" alt="Seçilen Küçük Resim" style="max-width: 100%; max-height: 200px;" src="">
+                            </div>
+                        </div>
+                        <a class="btn btn-danger mt-2" onclick="removeSmallImage()">Sil</a>
+                    </div>
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Banner :</label>
+                        <div class="col-lg-8">
+                            <input type="file" asp-for="Banner" class="form-control" onchange="showBanner(event)" />
+                        </div>
+                    </div>
+
+                    <div id="bannerGoster" style="display: none; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img id="gosterilenBanner" alt="Seçilen Banner" style="max-width: 100%; max-height: 200px;" src="">
+                            </div>
+                        </div>
+                        <a class="btn btn-danger mt-2" onclick="removeBanner()">Sil</a>
+                    </div>
+
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Anasayfa da gösterilsin mi? </label>
+                        <div class="col-lg-8 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="IsHome">
+                        </div>
+                    </div>
+                    <div class="form-group d-flex align-items-center mb-2">
+                        <label class="control-label col-lg-3">Aktif mi? </label>
+                        <div class="col-lg-8 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive">
+                        </div>
+                    </div>
+
                 </div>
             </div>
+        </div>
 
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <a onclick="add()" class="btn btn-success float-right">Ekle</a>
         </div>
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <a onclick="add()" class="btn btn-success float-right">Ekle</a>
-            </div>
-        </div>
-    </form>
-</section>
+    </div>
+</form>
 
 
 @section Scripts {
-    @* Tinymce Text Editör *@
-    <script>
-        tinymce.init({
-            selector: '.mytextarea'
-        });
-    </script>
     @* Resim *@
     <script>
         function showImage(event) {
@@ -276,7 +268,7 @@
                                 'success'
                             ).then((res) => {
                                 if (res.isConfirmed) {
-                                    window.location.href = '/Admin/Product/ProductList';
+                                    window.location.href = '/Admin/Product/Index';
                                 }
                             });
                         } else if (result.status == 400) {

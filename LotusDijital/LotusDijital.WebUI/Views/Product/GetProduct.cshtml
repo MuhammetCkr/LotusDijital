@@ -28,8 +28,7 @@
                     <div class="col-lg-3">
                         <h4 class="fw-bold mb-3">@Model.ProductModel.Name</h4>
                         <p class="mb-3">Kategori: @category.Name</p>
-                        <h5 class="fw-bold mb-3">3,35 $</h5>
-                        <p class="mb-4">@Model.ProductModel.ShortContent</p>
+                        <p class="mb-4">@Html.Raw(Model.ProductModel.ShortContent)</p>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Satın Al
                         </button>
@@ -106,10 +105,7 @@
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">@product.Title</div>
                             <div class="p-4 pb-0 rounded-bottom">
                                 <h4>@product.Name</h4>
-                                <p>@product.ShortContent</p>
                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">$123 / kg</p>
-
                                     <a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary" ><i class="fa fa-shopping-bag me-2 text-primary"></i> İncele</a>
                                 </div>
                             </div>
