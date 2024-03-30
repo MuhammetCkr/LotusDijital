@@ -27,6 +27,7 @@ namespace LotusDijital.Entity
         public string TrendyolLink { get; set; }
         public string HepsiBuradaLink { get; set; }
         public string CicekSepetiLink { get; set; }
+        public byte[] QRCode { get; set; }
         public List<ProductCategories> ProductCategories { get; set; }
         public List<ImageGallery> ImageGalleries { get; set; }
         public List<VideoGallery> VideoGalleries { get; set; }

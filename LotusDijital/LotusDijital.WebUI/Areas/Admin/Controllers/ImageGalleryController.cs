@@ -69,11 +69,11 @@ namespace LotusDijital.WebUI.Areas.Admin.Controllers
             return Json(new { status = response });
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> IsActive(int id)
         {
             var result = await AreaImageGalleryDAL.IsActive(id);
-            return View(result);
+            return Json(new { status = result });
         }
     }
 }

@@ -295,6 +295,9 @@ namespace LotusDijital.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("QRCode")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("ShortContent")
                         .HasColumnType("nvarchar(max)");
 

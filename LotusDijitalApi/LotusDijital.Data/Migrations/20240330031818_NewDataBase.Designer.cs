@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LotusDijital.Data.Migrations
 {
     [DbContext(typeof(LotusDijitalDbContext))]
-    [Migration("20240308195530_Sql")]
-    partial class Sql
+    [Migration("20240330031818_NewDataBase")]
+    partial class NewDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -297,6 +297,9 @@ namespace LotusDijital.Data.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("QRCode")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ShortContent")
                         .HasColumnType("nvarchar(max)");

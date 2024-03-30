@@ -84,10 +84,19 @@ namespace LotusDijital.WebUI.Areas.Admin.Data
 
         public static async Task<int> IsActive(int id)
         {
+            var imageGalleryModel = await GetImageGallery(id);
+            imageGalleryModel.IsActive = !imageGalleryModel.IsActive;
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync(Jobs.ApiUrlString + "/getIsActive/" + id);
-                return response.IsSuccessStatusCode ? 200 : 400;
+                var serializeGallery = JsonSerializer.Serialize(imageGalleryModel);
+                var stringContent = new StringContent(serializeGallery, Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync(Jobs.ApiUrlString + "/getIsActive", stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return responseContent == "true" ? 200 : 300;
+                }
+                return 400;
             }
         }
     }

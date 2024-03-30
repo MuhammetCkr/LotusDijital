@@ -22,6 +22,7 @@ namespace LotusDijital.Shared.Dtos
         public string TrendyolLink { get; set; }
         public string HepsiBuradaLink { get; set; }
         public string CicekSepetiLink { get; set; }
+        public byte[] QRCode { get; set; }
         public List<int> CategoryIds { get; set; } = new List<int>();
         public List<int?> ImageGalleryIds { get; set; } = new List<int?>();
         public List<int?> VideoGalleryIds { get; set; } = new List<int?>();

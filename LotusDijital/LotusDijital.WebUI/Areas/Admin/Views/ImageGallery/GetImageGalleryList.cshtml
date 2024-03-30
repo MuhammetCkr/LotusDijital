@@ -75,11 +75,12 @@
     <script>
         function isActive(id) {
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: '/Admin/ImageGallery/IsActive',
                 data: { id: id },
                 success: function (res) {
                     if (res.status == 200) {
+                        alert(res.status);
                         Swal.fire({
                             icon: 'success',
                             title: 'Başarıyla Aktifleşti',

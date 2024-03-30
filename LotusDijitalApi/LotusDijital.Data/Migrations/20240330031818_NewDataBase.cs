@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LotusDijital.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Sql : Migration
+    public partial class NewDataBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -114,6 +114,7 @@ namespace LotusDijital.Data.Migrations
                     TrendyolLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HepsiBuradaLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CicekSepetiLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    QRCode = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
